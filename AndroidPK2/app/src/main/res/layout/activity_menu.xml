@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_activity"
+    android:weightSum="1"
+    android:clickable="false" android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="388dp"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="70dp"
+            android:id="@+id/menu_choice_view"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/A"
+                android:id="@+id/button_A"
+                android:onClick="onClickA" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/B"
+                android:id="@+id/button_B"
+                android:onClick="onClickB" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/C"
+                android:id="@+id/button_C"
+                android:onClick="onClickC" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="168dp"
+            android:layout_height="300dp"
+            android:layout_gravity="right"
+            android:id="@+id/preview_layout"
+            android:layout_weight="1">
+        </FrameLayout>
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/OK"
+        android:layout_gravity="center"
+        android:onClick="menuButtonOk"
+        android:id="@+id/menu_button_ok" />
+</LinearLayout>
