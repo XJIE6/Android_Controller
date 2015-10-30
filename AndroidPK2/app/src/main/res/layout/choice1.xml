@@ -7,8 +7,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/space"
-        android:id="@+id/button"
+        android:id="@+id/space"
         android:layout_alignParentEnd="false"
         android:background="@drawable/test_gradient"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:onClick="spaceOnClick" />
 </RelativeLayout>

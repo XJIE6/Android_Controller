@@ -24,7 +24,7 @@
             android:textIsSelectable="false"
             android:allowUndo="false"
             android:autoText="false"
-            android:inputType="number|numberDecimal" />
+             />
         <Button
             android:text="@string/OK"
             android:layout_width="match_parent"
