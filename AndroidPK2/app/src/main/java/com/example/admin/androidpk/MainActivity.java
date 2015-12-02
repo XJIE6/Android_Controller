@@ -2,6 +2,7 @@ package com.example.admin.androidpk;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +13,15 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = MainActivity.class.getSimpleName();
+    public static Queue<String> mail = new LinkedList<>();
     EditText mEditText;
 
     @Override
@@ -64,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void ButtonIPClick(View view) {
         Log.d(TAG, "ButtonIPClick");
-        String IP = String.valueOf(mEditText.getText());
+        String IP = "192.168.211.246"; // WTF???
+        //String IP = String.valueOf(mEditText.getText());
         if (checkValidate(IP)) {
             Intent intent = new Intent(this, DownloadActivity.class);
             startActivity(intent);
@@ -73,8 +82,15 @@ public class MainActivity extends AppCompatActivity {
             startService(intent);
         } else {
             Intent intent = new Intent(this, InfoActivity.class);
-            intent.putExtra("information", "Wrong IP-addres");
+            intent.putExtra("information", "Wrong IP-ddres");
             startActivity(intent);
+        }
+    }
+
+    public static void send(String s) {
+        synchronized (MainActivity.mail) {
+            MainActivity.mail.add("lol");
+            MainActivity.mail.notify();
         }
     }
 

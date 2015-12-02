@@ -57,12 +57,9 @@ public class PlayActivity extends AppCompatActivity{
         getSupportActionBar().hide();
     }
 
- /*   public void spaceOnClick(View view) {
-        try {
-            out.writeUTF(" ");
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    } */
+    public void spaceOnClick(View view) {
+        Log.d(TAG, "onClickSpace");
+        MainActivity.send("lol");
+    }
+
 }

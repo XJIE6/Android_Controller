@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 
 import java.io.DataInputStream;
@@ -56,6 +57,19 @@ public class ConnectService extends IntentService {
                         out.flush(); // заставляем поток закончить передачу данных.
                         //line = in.readUTF(); // ждем пока сервер отошлет строку текста.
                         //}
+                        while (true) {
+                            synchronized (MainActivity.mail) {
+                                while (MainActivity.mail.isEmpty()) {
+                                    MainActivity.mail.wait();
+                                }
+                                while (!MainActivity.mail.isEmpty()) {
+                                    String s = MainActivity.mail.remove();
+                                    out.writeUTF(s);
+                                    out.flush();
+                                    Log.d(MainActivity.TAG, "wahaha");
+                                }
+                            }
+                        }
                     } catch (Exception x) {
                         x.printStackTrace();
                     }
