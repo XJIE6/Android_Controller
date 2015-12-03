@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ButtonIPClick(View view) {
         Log.d(TAG, "ButtonIPClick");
-        String IP = "192.168.211.246"; // WTF???
+        String IP = "192.168.67.161"; // WTF???
         //String IP = String.valueOf(mEditText.getText());
         if (checkValidate(IP)) {
             Intent intent = new Intent(this, DownloadActivity.class);
