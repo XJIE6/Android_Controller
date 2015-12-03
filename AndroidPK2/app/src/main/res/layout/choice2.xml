@@ -3,9 +3,132 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/id_choice_2">
-    <TextView
+
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/choice2"/>
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentTop="false"
+        android:layout_centerInParent="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="U"
+                android:id="@+id/up"
+                android:layout_column="2"
+                android:onClick="up" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="E"
+                android:id="@+id/bomb"
+                android:layout_column="5"
+                android:onClick="bomb" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="U"
+                android:id="@+id/ufire"
+                android:layout_column="8"
+                android:onClick="ufire" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="L"
+                android:id="@+id/left"
+                android:layout_column="1"
+                android:onClick="left" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="R"
+                android:id="@+id/right"
+                android:layout_column="3"
+                android:onClick="right" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/textView2"
+                android:layout_column="4" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="Q"
+                android:id="@+id/card"
+                android:layout_column="5"
+                android:onClick="card" />
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/textView3"
+                android:layout_column="6" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="L"
+                android:id="@+id/lfire"
+                android:layout_column="7"
+                android:onClick="lfire" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="R"
+                android:id="@+id/rfire"
+                android:layout_column="9"
+                android:onClick="rfire" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="D"
+                android:id="@+id/down"
+                android:layout_column="2"
+                android:onClick="down" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="S"
+                android:id="@+id/item"
+                android:layout_column="5"
+                android:onClick="space" />
+
+            <Button
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:text="D"
+                android:id="@+id/dfire"
+                android:layout_column="8"
+                android:onClick="dfire" />
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>

@@ -48,13 +48,13 @@ public class ConnectService extends IntentService {
                         out = new DataOutputStream(sout);
 
                         // Создаем поток для чтения с клавиатуры.
-                        String line = null;
+                        //String line = null;
 
                         //while (true) {
-                        line = "lol"; // ждем пока пользователь введет что-то и нажмет кнопку Enter.
+                        //line = "lol"; // ждем пока пользователь введет что-то и нажмет кнопку Enter.
                         //System.out.println("Sending this line to the server...");
-                        out.writeUTF(line); // отсылаем введенную строку текста серверу.
-                        out.flush(); // заставляем поток закончить передачу данных.
+                        //out.writeUTF(line); // отсылаем введенную строку текста серверу.
+                        //out.flush(); // заставляем поток закончить передачу данных.
                         //line = in.readUTF(); // ждем пока сервер отошлет строку текста.
                         //}
                         while (true) {

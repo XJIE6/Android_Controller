@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static void send(String s) {
         synchronized (MainActivity.mail) {
-            MainActivity.mail.add("lol");
+            MainActivity.mail.add(s);
             MainActivity.mail.notify();
         }
     }

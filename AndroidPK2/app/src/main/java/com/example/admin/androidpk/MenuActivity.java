@@ -93,4 +93,6 @@ public class MenuActivity extends AppCompatActivity {
         intent.putExtra("cur_layout", curSelection);
         startActivity(intent);
     }
+
+
 }

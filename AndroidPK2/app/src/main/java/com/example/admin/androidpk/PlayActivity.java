@@ -62,4 +62,42 @@ public class PlayActivity extends AppCompatActivity{
         MainActivity.send("lol");
     }
 
+    public void up(View view) {
+        MainActivity.send("w");
+    }
+    public void down(View view) {
+        MainActivity.send("s");
+    }
+    public void left(View view) {
+        MainActivity.send("a");
+    }
+    public void right(View view) {
+        MainActivity.send("d");
+    }
+
+
+    public void ufire(View view) {
+        MainActivity.send("i");
+    }
+    public void dfire(View view) {
+        MainActivity.send("k");
+    }
+    public void lfire(View view) {
+        MainActivity.send("j");
+    }
+    public void rfire(View view) {
+        MainActivity.send("l");
+    }
+
+
+    public void bomb(View view) {
+        MainActivity.send("e");
+    }
+    public void card(View view) {
+        MainActivity.send("q");
+    }
+    public void space(View view) {
+        MainActivity.send(" ");
+    }
+
 }
