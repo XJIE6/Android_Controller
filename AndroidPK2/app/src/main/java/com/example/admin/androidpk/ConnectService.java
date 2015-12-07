@@ -35,6 +35,8 @@ public class ConnectService extends IntentService {
                 res *= 94;
                 res += address.charAt(i) - 33;
             }
+
+            //System.out.println(res);
             String ip = "";
             for (int i = 0; i < 4; ++i) {
                 if (i != 0) {
@@ -42,9 +44,13 @@ public class ConnectService extends IntentService {
                 }
                 ip += res % (1 << 8);
                 res /= (1 << 8);
+
+                //System.out.println(res);
             }
             final int serverPort = (int) (res % (1 << 16));
             res /= (1 << 16);
+
+            //System.out.println(res);
             final String ipAdress = ip;
             final int key = (int) res;
             Log.d(MainActivity.TAG, ip);

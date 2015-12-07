@@ -58,15 +58,19 @@ public class Clicker implements Runnable {
         long res = 0;
         int i = 0;
         for (String s : ip.split("\\.")) {
-            res += Integer.parseInt(s) << i;
+            res += Long.parseLong(s) << i;
             i += 8;
+
+            //System.out.println(res);
             //toByte(res);
             //System.out.println();
             //toByte(Integer.parseInt(s));
             //System.out.println();
         }
         res += port << 32;
+        //System.out.println(res);
         res += key << 48;
+        //System.out.println(res);
         String ans = "";
         while (res != 0) {
             ans = (char)((res % 94) + 33) + ans;
