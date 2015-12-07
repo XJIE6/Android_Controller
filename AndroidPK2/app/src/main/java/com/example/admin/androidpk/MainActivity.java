@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-    public static Queue<String> mail = new LinkedList<>();
+    public static Queue<Integer> mail = new LinkedList<>();
     EditText mEditText;
 
     @Override
@@ -72,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ButtonIPClick(View view) {
         Log.d(TAG, "ButtonIPClick");
-        String IP = "192.168.67.161"; // WTF???
-        //String IP = String.valueOf(mEditText.getText());
+        String IP = String.valueOf(mEditText.getText());
         if (checkValidate(IP)) {
             Intent intent = new Intent(this, DownloadActivity.class);
             startActivity(intent);
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static void send(String s) {
+    public static void send(int s) {
         synchronized (MainActivity.mail) {
             MainActivity.mail.add(s);
             MainActivity.mail.notify();

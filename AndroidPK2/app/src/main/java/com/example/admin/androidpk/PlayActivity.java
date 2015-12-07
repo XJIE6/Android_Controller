@@ -6,7 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -37,6 +39,8 @@ public class PlayActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "CreateMainActivity");
+        /*TextView tv = (TextView) findViewById(R.id.textView4);
+        tv.setOnTouchListener(this);*/
 
         Intent curIntent = getIntent();
         Bundle extras = getIntent().getExtras();
@@ -59,45 +63,44 @@ public class PlayActivity extends AppCompatActivity{
 
     public void spaceOnClick(View view) {
         Log.d(TAG, "onClickSpace");
-        MainActivity.send("lol");
     }
 
     public void up(View view) {
-        MainActivity.send("w");
+        MainActivity.send(0);
     }
     public void down(View view) {
-        MainActivity.send("s");
+        MainActivity.send(1);
     }
     public void left(View view) {
-        MainActivity.send("a");
+        MainActivity.send(2);
     }
     public void right(View view) {
-        MainActivity.send("d");
+        MainActivity.send(3);
     }
 
 
     public void ufire(View view) {
-        MainActivity.send("i");
+        MainActivity.send(4);
     }
     public void dfire(View view) {
-        MainActivity.send("k");
+        MainActivity.send(5);
     }
     public void lfire(View view) {
-        MainActivity.send("j");
+        MainActivity.send(6);
     }
     public void rfire(View view) {
-        MainActivity.send("l");
+        MainActivity.send(7);
     }
 
 
     public void bomb(View view) {
-        MainActivity.send("e");
+        MainActivity.send(8);
     }
     public void card(View view) {
-        MainActivity.send("q");
+        MainActivity.send(9);
     }
     public void space(View view) {
-        MainActivity.send(" ");
+        MainActivity.send(10);
     }
 
 }

@@ -1,16 +1,27 @@
 package ru.spbau;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.DataInputStream;
-import java.io.InputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
-        int port = 6666; // случайный порт (может быть любое число от 1025 до 65535)
+        System.out.println("Hi, here is our amazing application! Write 'new' to create new connection, or write 'exit' to exit!");
+        Scanner in = new Scanner(System.in);
+        while (true) {
+            String s = in.nextLine();
+            if (s.equals("new")) {
+                new Thread(new Clicker()).start();
+            }
+            else if (s.equals("exit")) {
+                break;
+            }
+            else {
+                System.out.println("Unknown command '" + s + "'! Please, try again!");
+            }
+        }
+        //for (int i = 0; i < n; ++i) {
+
+        //}
+        /*int port = 6666; // случайный порт (может быть любое число от 1025 до 65535)
         try {
             ServerSocket ss = new ServerSocket(port); // создаем сокет сервера и привязываем его к вышеуказанному порту
             System.out.println("Waiting for a client...");
@@ -90,7 +101,7 @@ public class Main {
                 }
             }
 
-            /*while (true) {
+            while (true) {
                 if (in.available() > 0) {
                     line = in.readUTF();
                     for (int i = 0; i < line.length(); ++i) {
@@ -99,9 +110,9 @@ public class Main {
                         robot.keyRelease(keyCode);
                     }
                 }
-            }*/
+            }
         } catch (Exception x) {
             x.printStackTrace();
-        }
+        }*/
     }
 }
