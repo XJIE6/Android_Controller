@@ -118,7 +118,6 @@ public class Clicker implements Runnable {
             }
         }
     }
-
     private void runCmd() {
         while (true) {
             try {
