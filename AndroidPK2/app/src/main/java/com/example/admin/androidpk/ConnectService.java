@@ -29,12 +29,32 @@ public class ConnectService extends IntentService {
     }
     boolean tryToConnect(final String address) {
         try {
-            final int serverPort = 6666;
+            //final int serverPort = 6666;
+            long res = 0;
+            for (int i = 0; i < address.length(); ++i) {
+                res *= 94;
+                res += address.charAt(i) - 33;
+            }
+            String ip = "";
+            for (int i = 0; i < 4; ++i) {
+                if (i != 0) {
+                    ip += '.';
+                }
+                ip += res % (1 << 8);
+                res /= (1 << 8);
+            }
+            final int serverPort = (int) (res % (1 << 16));
+            res /= (1 << 16);
+            final String ipAdress = ip;
+            final int key = (int) res;
+            Log.d(MainActivity.TAG, ip);
+            Log.d(MainActivity.TAG, String.valueOf(serverPort));
+            Log.d(MainActivity.TAG, String.valueOf(key));
             new Thread() {
                 @Override
                 public void run() {
                     try {
-                        InetAddress ipAddress = InetAddress.getByName(address); // создаем объект который отображает вышеописанный IP-адрес.
+                        InetAddress ipAddress = InetAddress.getByName(ipAdress); // создаем объект который отображает вышеописанный IP-адрес.
                         //System.out.println("Any of you heard of a socket with IP address " + address + " and port " + serverPort + "?");
                         Socket socket = new Socket(ipAddress, serverPort); // создаем сокет используя IP-адрес и порт сервера.
                         //System.out.println("Yes! I just got hold of the program.");

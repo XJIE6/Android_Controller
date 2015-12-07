@@ -6,7 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -37,6 +39,8 @@ public class PlayActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "CreateMainActivity");
+        /*TextView tv = (TextView) findViewById(R.id.textView4);
+        tv.setOnTouchListener(this);*/
 
         Intent curIntent = getIntent();
         Bundle extras = getIntent().getExtras();
