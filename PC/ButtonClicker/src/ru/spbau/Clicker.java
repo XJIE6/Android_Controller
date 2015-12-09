@@ -1,11 +1,8 @@
 package ru.spbau;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +97,6 @@ public class Clicker implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         while (true) {
             try {
                 cmd = in.readInt();
@@ -108,16 +104,42 @@ public class Clicker implements Runnable {
                     break;
                 }
                 if (cmd == 1) {
-                    readCmd();
+                    newCmd();
                 }
                 if (cmd == 2) {
                     runCmd();
                 }
+                if (cmd == 3) {
+                    addCmd();
+                }
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    private void addCmd() {
+        try {
+            int n = in.readInt();
+            for (int i = 0; i < n; ++i) {
+                int m = in.readInt();
+                List<Integer> list = new ArrayList<>();
+                for (int j = 0; j < m; ++j) {
+                    list.add(in.readInt());
+                }
+                commands.add(new Command(list));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void runCmd() {
         while (true) {
             try {
@@ -135,21 +157,8 @@ public class Clicker implements Runnable {
         }
     }
 
-    private void readCmd() {
-        try {
-            int n = in.readInt();
-            commands = new ArrayList<>();
-            for (int i = 0; i < n; ++i) {
-                int m = in.readInt();
-                List<Integer> list = new ArrayList<>();
-                for (int j = 0; j < m; ++j) {
-                    list.add(in.readInt());
-                }
-                commands.add(new Command(list));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void newCmd() {
+        commands = new ArrayList<>();
+        addCmd();
     }
 }

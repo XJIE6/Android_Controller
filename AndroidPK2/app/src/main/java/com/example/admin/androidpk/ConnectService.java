@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import java.io.DataInputStream;
@@ -66,6 +67,68 @@ public class ConnectService extends IntentService {
                         out.writeInt(key);
 
                         out.writeInt(1);
+                        out.writeInt(16);
+
+                        out.writeInt(1);
+                        out.writeInt(87);
+
+                        out.writeInt(2);
+                        out.writeInt(87);
+                        out.writeInt(65);
+
+                        out.writeInt(1);
+                        out.writeInt(65);
+
+                        out.writeInt(2);
+                        out.writeInt(65);
+                        out.writeInt(83);
+
+                        out.writeInt(1);
+                        out.writeInt(83);
+
+                        out.writeInt(2);
+                        out.writeInt(83);
+                        out.writeInt(68);
+
+                        out.writeInt(1);
+                        out.writeInt(68);
+
+                        out.writeInt(2);
+                        out.writeInt(68);
+                        out.writeInt(87);
+
+
+
+                        out.writeInt(1);
+                        out.writeInt(-87);
+
+                        out.writeInt(2);
+                        out.writeInt(-87);
+                        out.writeInt(-65);
+
+                        out.writeInt(1);
+                        out.writeInt(-65);
+
+                        out.writeInt(2);
+                        out.writeInt(-65);
+                        out.writeInt(-83);
+
+                        out.writeInt(1);
+                        out.writeInt(-83);
+
+                        out.writeInt(2);
+                        out.writeInt(-83);
+                        out.writeInt(-68);
+
+                        out.writeInt(1);
+                        out.writeInt(-68);
+
+                        out.writeInt(2);
+                        out.writeInt(-68);
+                        out.writeInt(-87);
+
+
+                        /*out.writeInt(1);
                         out.writeInt(22);
 
                         out.writeInt(1);
@@ -113,8 +176,10 @@ public class ConnectService extends IntentService {
                         out.writeInt(-81);
                         out.writeInt(1);
                         out.writeInt(-32);
+                        */
 
                         out.writeInt(2);
+
 
                         while (true) {
                             synchronized (MainActivity.mail) {
@@ -128,13 +193,9 @@ public class ConnectService extends IntentService {
                                         public void run() {
                                             try {
                                                 out.writeInt(s);
-                                                out.flush();
-                                                Thread.sleep(100);
-                                                out.writeInt(s + 11);
+                                                System.out.println(s);
                                                 out.flush();
                                             } catch (IOException e) {
-                                                e.printStackTrace();
-                                            } catch (InterruptedException e) {
                                                 e.printStackTrace();
                                             }
 

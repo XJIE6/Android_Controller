@@ -3,10 +3,9 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:gravity="bottom|center"
     android:id="@+id/id_choice_1">
-    <Button
+    <com.example.admin.androidpk.MySampleView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/space"
         android:id="@+id/space"
         android:layout_alignParentEnd="false"
         android:background="@drawable/test_gradient"
