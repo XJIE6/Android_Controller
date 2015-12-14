@@ -3,12 +3,11 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:gravity="bottom|center"
     android:id="@+id/id_choice_1">
-    <com.example.admin.androidpk.MySampleView
+    <com.example.admin.androidpk.MySampleButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/space"
         android:layout_alignParentEnd="false"
         android:background="@drawable/test_gradient"
-        android:textSize="20dp"
-        android:onClick="spaceOnClick" />
+        android:textSize="20dp"/>
 </RelativeLayout>

@@ -88,10 +88,12 @@ public class Clicker implements Runnable {
 
     @Override
     public void run() {
+        System.out.print("inRun");
         int cmd;
         try {
             cmd = in.readInt();
             if (cmd != key) {
+                System.out.print("inRunfff");
                 return;
             }
         } catch (IOException e) {
@@ -100,6 +102,7 @@ public class Clicker implements Runnable {
         while (true) {
             try {
                 cmd = in.readInt();
+                System.out.print("inRunfffaaaaa");
                 if (cmd == 0) {
                     break;
                 }
@@ -121,6 +124,8 @@ public class Clicker implements Runnable {
                 e.printStackTrace();
             }
         }
+
+        System.out.print("outRun");
     }
 
     private void addCmd() {
@@ -141,20 +146,23 @@ public class Clicker implements Runnable {
     }
 
     private void runCmd() {
+        System.out.print("inRunCmd");
         while (true) {
+            int cmd = 0;
             try {
-                int cmd = in.readInt();
-                if (cmd == -1) {
-                    break;
-                }
-                else  {
-                    commands.get(cmd).run();
-                }
-
+                cmd = in.readInt();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            if (cmd == -1) {
+                break;
+            }
+            else  {
+                commands.get(cmd).run();
+            }
         }
+
+        System.out.print("outRunCmd");
     }
 
     private void newCmd() {

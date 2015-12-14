@@ -39,80 +39,80 @@ public class MySampleView extends FrameLayout implements JoystickView.OnJoystick
     public void onValueChanged(int i, int i1, int i2) {
         switch (i2) {
             case JoystickView.FRONT:
-                if (k != 0) {
+                if (k != 11) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(0);
-                    k = 0;
+                    MainActivity.send(11);
+                    k = 11;
                 }
                 break;
             case JoystickView.FRONT_RIGHT:
-                if (k != 1) {
+                if (k != 12) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(1);
-                    k = 1;
+                    MainActivity.send(12);
+                    k = 12;
                 }
                 break;
             case JoystickView.RIGHT:
-                if (k != 2) {
+                if (k != 13) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(2);
-                    k = 2;
+                    MainActivity.send(13);
+                    k = 13;
                 }
                 break;
             case JoystickView.RIGHT_BOTTOM:
-                if (k != 3) {
+                if (k != 14) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(3);
-                    k = 3;
+                    MainActivity.send(14);
+                    k = 14;
                 }
                 break;
             case JoystickView.BOTTOM:
-                if (k != 4) {
+                if (k != 15) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(4);
-                    k = 4;
+                    MainActivity.send(15);
+                    k = 15;
                 }
                 break;
             case JoystickView.BOTTOM_LEFT:
-                if (k != 5) {
+                if (k != 16) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(5);
-                    k = 5;
+                    MainActivity.send(16);
+                    k = 16;
                 }
                 break;
             case JoystickView.LEFT:
-                if (k != 6) {
+                if (k != 17) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(6);
-                    k = 6;
+                    MainActivity.send(17);
+                    k = 17;
                 }
                 break;
             case JoystickView.LEFT_FRONT:
-                if (k != 7) {
+                if (k != 18) {
                     if (k != -1) {
-                        MainActivity.send(k + 8);
+                        MainActivity.send(k + 19);
                     }
-                    MainActivity.send(7);
-                    k = 7;
+                    MainActivity.send(18);
+                    k = 18;
                 }
                 break;
             default:
                 if (k != -1) {
-                    MainActivity.send(k + 8);
+                    MainActivity.send(k + 19);
                 }
                 k = -1;
         }
