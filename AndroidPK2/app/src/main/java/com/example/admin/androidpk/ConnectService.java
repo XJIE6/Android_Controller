@@ -190,12 +190,12 @@ public class ConnectService extends IntentService {
                                 1, -39,
                                 1, 40, //down
                                 1, -40,
-                                1, 38, //left
-                                1, -38,
-                                1, 81, //q
-                                1, -81,
+                                1, 37, //left
+                                1, -37,
                                 1, 69, //e
                                 1, -69,
+                                1, 81, //q
+                                1, -81,
                                 1, 32, //space
                                 1, -32,
                                 2, 87, 68, //wd
@@ -205,7 +205,8 @@ public class ConnectService extends IntentService {
                                 2, 83, 65, //sa
                                 2, -65, -83,
                                 2, 65, 87, //aw
-                                2, -87, -65
+                                2, -87, -65,
+                                2
                         };
 
                         for (int i = 0; i < arr.length; ++i) {

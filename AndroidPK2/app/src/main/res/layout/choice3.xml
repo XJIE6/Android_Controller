@@ -81,7 +81,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:text="L"
-                android:id="@+id/View10"
+                android:id="@+id/View11"
                 android:layout_column="7"/>
 
             <com.example.admin.androidpk.MyButton
@@ -114,7 +114,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:text="D"
-                android:id="@+id/View11"
+                android:id="@+id/View10"
                 android:layout_column="8"/>
         </TableRow>
     </TableLayout>

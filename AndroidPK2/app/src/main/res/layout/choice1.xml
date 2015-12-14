@@ -3,11 +3,10 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:gravity="bottom|center"
     android:id="@+id/id_choice_1">
-    <com.example.admin.androidpk.MySampleButton
+    <com.example.admin.androidpk.MyJoystick
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/space"
+        android:id="@+id/View100"
         android:layout_alignParentEnd="false"
-        android:background="@drawable/test_gradient"
         android:textSize="20dp"/>
 </RelativeLayout>

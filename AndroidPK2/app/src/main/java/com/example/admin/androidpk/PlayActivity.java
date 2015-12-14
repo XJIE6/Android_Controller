@@ -69,6 +69,7 @@ public class PlayActivity extends AppCompatActivity{
         f(9, new int[]{10, 11});
         f(10, new int[]{12, 13});
         f(11, new int[]{14, 15});
+        //f(100, new int[]{0, 22, 2, 24, 4, 26, 6, 28, 1, 23, 3, 25, 5, 27, 7, 29});
         System.out.print("wwwwwwwwwwwwwww");
     }
 
