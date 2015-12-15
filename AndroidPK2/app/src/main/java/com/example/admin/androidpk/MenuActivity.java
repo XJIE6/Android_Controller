@@ -17,34 +17,35 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Vector;
 
 /**
  * Created by Admin on 16.10.2015.
  */
 public class MenuActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    FrameLayout mPreviewFrameLayout;
-    LinearLayout mMenuChoiceLayout;
-    int curSelection;
+    private FrameLayout mPreviewFrameLayout;
+    private LinearLayout mMenuChoiceLayout;
+    private int curSelection;
+    private ArrayList<Integer> variatyLayoutsID = new ArrayList<>();
 
-    private boolean setLayoutsChoice() {
+    private int setLayoutsChoice() {
         int count = 0;
-        String curId = "id_choice_";
+        String firstPart = "choice";
         while (++count > 0) {
-            int rId = -1;
-            curId += count;
-            Class classRID = R.id.class;
-            try {
-                rId = classRID.getField(curId).;
-            } catch (NoSuchFieldException e) {
-                return false;
+            String curLayout = firstPart + count;
+            int curID = getResources().getIdentifier(curLayout, "layout", getApplicationContext().getPackageName());
+            if (curID == 0) {
+                break;
+            } else {
+                variatyLayoutsID.add(curID);
+                Log.d(TAG, curLayout);
             }
-            if (rId < 0)
-                return false;
-
-
         }
         return count;
     }
@@ -52,7 +53,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "CreateMainActivity");
+        Log.d(TAG, "CreateMenuActivity");
         setContentView(R.layout.activity_menu);
         mPreviewFrameLayout = (FrameLayout) findViewById(R.id.preview_layout);
         mMenuChoiceLayout = (LinearLayout) findViewById(R.id.menu_choice_view);
@@ -69,17 +70,9 @@ public class MenuActivity extends AppCompatActivity {
         mPreviewFrameLayout.removeAllViews();
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
-        curSelection = R.layout.choice1;
+        curSelection = 0;
 
-        int countOfLayoutFiles = findLayoutsChoice();
-        String name = "Mode "
-        for (int i = 1; i <= countOfLayoutFiles; i++) {
-            String curName = name + i;
-            Button curButton = new Button(this);
-            curButton.setText(curName);
-            ViewGroup.LayoutParams paramsButton = new ViewGroup.LayoutParams(this, )
-            mMenuChoiceLayout.addView();
-        }
+        int countOfLayoutFiles = setLayoutsChoice();
     }
 
     @Override
@@ -108,29 +101,29 @@ public class MenuActivity extends AppCompatActivity {
         Log.d(TAG, "onClickA");
         mPreviewFrameLayout.removeAllViews();
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
-        curSelection = R.layout.choice1;
+        inflater.inflate(variatyLayoutsID.get(0), mPreviewFrameLayout);
+        curSelection = 0;
     }
 
     public void onClickB(View view) {
         mPreviewFrameLayout.removeAllViews();
         Log.d(TAG, "onClickB");
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice2, mPreviewFrameLayout);
-        curSelection = R.layout.choice2;
+        inflater.inflate(variatyLayoutsID.get(1), mPreviewFrameLayout);
+        curSelection = 1;
     }
 
     public void onClickC(View view) {
         mPreviewFrameLayout.removeAllViews();
         Log.d(TAG, "onClickC");
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice3, mPreviewFrameLayout);
-        curSelection = R.layout.choice3;
+        inflater.inflate(variatyLayoutsID.get(2), mPreviewFrameLayout);
+        curSelection = 2;
     }
 
     public void menuButtonOk(View view) {
         Intent intent = new Intent(this, PlayActivity.class);
-        intent.putExtra("cur_layout", curSelection);
+        intent.putExtra("cur_layout", variatyLayoutsID.get(curSelection));
         startActivity(intent);
     }
 
