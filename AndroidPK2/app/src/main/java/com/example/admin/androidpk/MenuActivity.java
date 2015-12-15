@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Vector;
+import java.util.zip.Inflater;
 
 /**
  * Created by Admin on 16.10.2015.
@@ -39,11 +40,25 @@ public class MenuActivity extends AppCompatActivity {
         String firstPart = "choice";
         while (++count > 0) {
             String curLayout = firstPart + count;
-            int curID = getResources().getIdentifier(curLayout, "layout", getApplicationContext().getPackageName());
+            final int curID = getResources().getIdentifier(curLayout, "layout", getApplicationContext().getPackageName());
             if (curID == 0) {
                 break;
-            } else {
+            } else if (findViewById(count) == null){
                 variatyLayoutsID.add(curID);
+                Button curButton = new Button(this);
+                curButton.setText("choice " + count);
+                curButton.setId(count);
+                mMenuChoiceLayout.addView(curButton);
+                final int curCount = count;
+                curButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPreviewFrameLayout.removeAllViews();
+                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        inflater.inflate(curID, mPreviewFrameLayout);
+                        curSelection = curCount - 1;
+                    }
+                });
                 Log.d(TAG, curLayout);
             }
         }
@@ -96,31 +111,7 @@ public class MenuActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void onClickA(View view) {
-        Log.d(TAG, "onClickA");
-        mPreviewFrameLayout.removeAllViews();
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(variatyLayoutsID.get(0), mPreviewFrameLayout);
-        curSelection = 0;
-    }
-
-    public void onClickB(View view) {
-        mPreviewFrameLayout.removeAllViews();
-        Log.d(TAG, "onClickB");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(variatyLayoutsID.get(1), mPreviewFrameLayout);
-        curSelection = 1;
-    }
-
-    public void onClickC(View view) {
-        mPreviewFrameLayout.removeAllViews();
-        Log.d(TAG, "onClickC");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(variatyLayoutsID.get(2), mPreviewFrameLayout);
-        curSelection = 2;
-    }
-
+    
     public void menuButtonOk(View view) {
         Intent intent = new Intent(this, PlayActivity.class);
         intent.putExtra("cur_layout", variatyLayoutsID.get(curSelection));
