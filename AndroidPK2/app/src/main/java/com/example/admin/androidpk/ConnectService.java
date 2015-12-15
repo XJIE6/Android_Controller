@@ -95,7 +95,6 @@ public class ConnectService extends IntentService {
             if (tryToConnect(curIP)) {
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("out_buffer", (Parcelable) out);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(this, InfoActivity.class);

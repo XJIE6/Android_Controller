@@ -19,8 +19,6 @@ import java.util.zip.Inflater;
 public class PlayActivity extends AppCompatActivity{
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String LAYOUT_KEY = "cur_layout";
-    private static final String OUT = "out_buffer";
-    DataOutputStream out;
 
     public static int getResId(String resName, Class<?> c) {
 
@@ -42,7 +40,6 @@ public class PlayActivity extends AppCompatActivity{
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             setContentView(extras.getInt(LAYOUT_KEY));
-            out = (DataOutputStream) extras.get(OUT);
         } else {
             setContentView(R.layout.invalid);
         }
