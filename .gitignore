@@ -25,3 +25,15 @@ proguard/
 
 # Log Files
 *.log
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Intellij project files
+.idea/
+/*/.idea/
+target/**
