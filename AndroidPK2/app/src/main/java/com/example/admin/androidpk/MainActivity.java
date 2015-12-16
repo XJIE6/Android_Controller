@@ -40,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        getSupportActionBar().hide();
+        try {
+            getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NullPointerException in MainActivity.onResume()");
+            throw e;
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

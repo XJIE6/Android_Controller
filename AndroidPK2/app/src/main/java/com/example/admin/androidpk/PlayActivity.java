@@ -1,19 +1,12 @@
 package com.example.admin.androidpk;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.zip.Inflater;
 
 /**
  * Created by Admin on 17.10.2015.
@@ -40,7 +33,6 @@ public class PlayActivity extends AppCompatActivity{
         /*TextView tv = (TextView) findViewById(R.id.textView4);
         tv.setOnTouchListener(this);*/
 
-        Intent curIntent = getIntent();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             setContentView(extras.getInt(LAYOUT_KEY));
@@ -55,7 +47,12 @@ public class PlayActivity extends AppCompatActivity{
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        getSupportActionBar().hide();
+        try {
+            getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     public void spaceOnClick(View view) {

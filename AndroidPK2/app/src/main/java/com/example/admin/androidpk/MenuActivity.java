@@ -1,6 +1,5 @@
 package com.example.admin.androidpk;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,20 +9,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Vector;
-import java.util.zip.Inflater;
 
 /**
  * Created by Admin on 16.10.2015.
@@ -80,14 +70,19 @@ public class MenuActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        getSupportActionBar().hide();
+        try {
+            getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NullPointerException in MenuActivity.onResume()");
+            throw e;
+        }
 
         mPreviewFrameLayout.removeAllViews();
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
         curSelection = 0;
 
-        int countOfLayoutFiles = setLayoutsChoice();
+        setLayoutsChoice();
     }
 
     @Override
@@ -111,7 +106,7 @@ public class MenuActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    
+
     public void menuButtonOk(View view) {
         Intent intent = new Intent(this, PlayActivity.class);
         intent.putExtra("cur_layout", variatyLayoutsID.get(curSelection));
