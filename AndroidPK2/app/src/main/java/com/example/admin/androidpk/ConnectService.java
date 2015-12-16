@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import java.io.DataInputStream;
@@ -20,12 +21,12 @@ import java.security.Provider;
  */
 public class ConnectService extends IntentService {
     static final String OUT = "out_buffer";
-    DataInputStream in;
     DataOutputStream out;
     static final String IP = "IP";
     public ConnectService() {
         super("ConnectService");
     }
+
     boolean tryToConnect(final String address) {
         try {
             long res = 0;
@@ -65,8 +66,8 @@ public class ConnectService extends IntentService {
                         out = new DataOutputStream(sout);
                         out.writeInt(key);
 
-                        out.writeInt(1);
-                        out.writeInt(22);
+                        /*out.writeInt(1);
+                        out.writeInt(38);
 
                         out.writeInt(1);
                         out.writeInt(87);
@@ -92,6 +93,34 @@ public class ConnectService extends IntentService {
                         out.writeInt(32);
 
                         out.writeInt(1);
+                        out.writeInt(87);
+
+                        out.writeInt(2);
+                        out.writeInt(87);
+                        out.writeInt(65);
+
+                        out.writeInt(1);
+                        out.writeInt(65);
+
+                        out.writeInt(2);
+                        out.writeInt(65);
+                        out.writeInt(83);
+
+                        out.writeInt(1);
+                        out.writeInt(83);
+
+                        out.writeInt(2);
+                        out.writeInt(83);
+                        out.writeInt(68);
+
+                        out.writeInt(1);
+                        out.writeInt(68);
+
+                        out.writeInt(2);
+                        out.writeInt(68);
+                        out.writeInt(87);
+
+                        out.writeInt(1);
                         out.writeInt(-87);
                         out.writeInt(1);
                         out.writeInt(-83);
@@ -114,7 +143,77 @@ public class ConnectService extends IntentService {
                         out.writeInt(1);
                         out.writeInt(-32);
 
+
+
+                        out.writeInt(1);
+                        out.writeInt(-87);
+
                         out.writeInt(2);
+                        out.writeInt(-87);
+                        out.writeInt(-65);
+
+                        out.writeInt(1);
+                        out.writeInt(-65);
+
+                        out.writeInt(2);
+                        out.writeInt(-65);
+                        out.writeInt(-83);
+
+                        out.writeInt(1);
+                        out.writeInt(-83);
+
+                        out.writeInt(2);
+                        out.writeInt(-83);
+                        out.writeInt(-68);
+
+                        out.writeInt(1);
+                        out.writeInt(-68);
+
+                        out.writeInt(2);
+                        out.writeInt(-68);
+                        out.writeInt(-87);
+
+                        out.writeInt(2);*/
+
+                        int [] arr = new int[]{1, 30,
+                                1, 87, //w
+                                1, -87,
+                                1, 68, //d
+                                1, -68,
+                                1, 83, //s
+                                1, -83,
+                                1, 65, //a
+                                1, -65,
+                                1, 38, //up
+                                1, -38,
+                                1, 39, //right
+                                1, -39,
+                                1, 40, //down
+                                1, -40,
+                                1, 37, //left
+                                1, -37,
+                                1, 69, //e
+                                1, -69,
+                                1, 81, //q
+                                1, -81,
+                                1, 32, //space
+                                1, -32,
+                                2, 87, 68, //wd
+                                2, -68, -87,
+                                2, 68, 83, //ds
+                                2, -83, -68,
+                                2, 83, 65, //sa
+                                2, -65, -83,
+                                2, 65, 87, //aw
+                                2, -87, -65,
+                                2
+                        };
+
+                        for (int i = 0; i < arr.length; ++i) {
+                            out.writeInt(arr[i]);
+                        }
+                        out.flush();
+                        Log.d(MainActivity.TAG, "WOW");
 
                         while (true) {
                             synchronized (MainActivity.mail) {
@@ -127,17 +226,12 @@ public class ConnectService extends IntentService {
                                         @Override
                                         public void run() {
                                             try {
+                                                Log.d(MainActivity.TAG, s.toString());
                                                 out.writeInt(s);
-                                                out.flush();
-                                                Thread.sleep(100);
-                                                out.writeInt(s + 11);
                                                 out.flush();
                                             } catch (IOException e) {
                                                 e.printStackTrace();
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
                                             }
-
                                         }
                                     }).start();
 
