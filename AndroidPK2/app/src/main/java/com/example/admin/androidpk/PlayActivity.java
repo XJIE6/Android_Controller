@@ -58,7 +58,7 @@ public class PlayActivity extends AppCompatActivity{
         }
         Log.d(TAG, "CreateMainActivity234234");
 
-        f(1, new int[]{0, 1});
+        /*f(1, new int[]{0, 1});
         f(2, new int[]{2, 3});
         f(3, new int[]{4, 5});
         f(4, new int[]{6, 7});
@@ -68,8 +68,9 @@ public class PlayActivity extends AppCompatActivity{
         f(8, new int[]{8, 9});
         f(9, new int[]{10, 11});
         f(10, new int[]{12, 13});
-        f(11, new int[]{14, 15});
+        f(11, new int[]{14, 15});*/
         //f(100, new int[]{0, 22, 2, 24, 4, 26, 6, 28, 1, 23, 3, 25, 5, 27, 7, 29});
+        f(100, new int[]{0, 2, 1, 3});
         System.out.print("wwwwwwwwwwwwwww");
     }
 

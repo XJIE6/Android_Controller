@@ -14,8 +14,9 @@ import android.widget.FrameLayout;
 public class MyButton extends FrameLayout implements View.OnTouchListener, Settingable{
     Button button;
     int[] settings;
-    public MyButton(Context context) {
+    public MyButton(Context context) throws Exception {
         super(context);
+        throw new Exception("Wrong button constructor");
     }
 
     public MyButton(Context context, AttributeSet attrs) {
@@ -25,8 +26,9 @@ public class MyButton extends FrameLayout implements View.OnTouchListener, Setti
         button.setOnTouchListener(this);
     }
 
-    public MyButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyButton(Context context, AttributeSet attrs, int defStyleAttr) throws Exception {
         super(context, attrs, defStyleAttr);
+        throw new Exception("Wrong button constructor");
     }
 
     @Override

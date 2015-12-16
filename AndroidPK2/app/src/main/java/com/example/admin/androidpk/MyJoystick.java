@@ -14,8 +14,9 @@ public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMo
     int prevComm = -1;
     int[] settings;
 
-    public MyJoystick(Context context) {
+    public MyJoystick(Context context) throws Exception {
         super(context);
+        throw new Exception("Wrong joystick constructor");
     }
 
     public MyJoystick(Context context, AttributeSet attrs) {
@@ -25,8 +26,9 @@ public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMo
         joystick.setOnJoystickMoveListener(this, JoystickView.DEFAULT_LOOP_INTERVAL);
     }
 
-    public MyJoystick(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyJoystick(Context context, AttributeSet attrs, int defStyleAttr) throws Exception {
         super(context, attrs, defStyleAttr);
+        throw new Exception("Wrong joystick constructor");
     }
 
     private int push(int a) {

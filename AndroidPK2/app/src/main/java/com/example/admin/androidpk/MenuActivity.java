@@ -36,9 +36,9 @@ public class MenuActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         getSupportActionBar().hide();
-        mPreviewFrameLayout.removeAllViews();
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
+//        mPreviewFrameLayout.removeAllViews();
+//        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
         curSelection = R.layout.choice1;
     }
 
@@ -66,25 +66,25 @@ public class MenuActivity extends AppCompatActivity {
 
     public void onClickA(View view) {
         Log.d(TAG, "onClickA");
-        mPreviewFrameLayout.removeAllViews();
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
+ //       mPreviewFrameLayout.removeAllViews();
+ //       LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+ //       inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
         curSelection = R.layout.choice1;
     }
 
     public void onClickB(View view) {
-        mPreviewFrameLayout.removeAllViews();
+   //     mPreviewFrameLayout.removeAllViews();
         Log.d(TAG, "onClickB");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice2, mPreviewFrameLayout);
+//        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        inflater.inflate(R.layout.choice2, mPreviewFrameLayout);
         curSelection = R.layout.choice2;
     }
 
     public void onClickC(View view) {
-        mPreviewFrameLayout.removeAllViews();
+     //   mPreviewFrameLayout.removeAllViews();
         Log.d(TAG, "onClickC");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice3, mPreviewFrameLayout);
+//        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        inflater.inflate(R.layout.choice3, mPreviewFrameLayout);
         curSelection = R.layout.choice3;
     }
 
