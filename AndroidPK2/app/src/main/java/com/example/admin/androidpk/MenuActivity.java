@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Created by Admin on 16.10.2015.
  */
 public class MenuActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MenuActivity.class.getSimpleName();
     private FrameLayout mPreviewFrameLayout;
     private LinearLayout mMenuChoiceLayout;
     private int curSelection;
@@ -30,11 +30,11 @@ public class MenuActivity extends AppCompatActivity {
         String firstPart = "choice";
         while (++count > 0) {
             String curLayout = firstPart + count;
-            final int curID = getResources().getIdentifier(curLayout, "layout", getApplicationContext().getPackageName());
-            if (curID == 0) {
+            final int curLayoutID = getResources().getIdentifier(curLayout, "layout", getApplicationContext().getPackageName());
+            if (curLayoutID == 0) {
                 break;
             } else if (findViewById(count) == null){
-                variatyLayoutsID.add(curID);
+                variatyLayoutsID.add(curLayoutID);
                 Button curButton = new Button(this);
                 curButton.setText("choice " + count);
                 curButton.setId(count);
@@ -43,9 +43,9 @@ public class MenuActivity extends AppCompatActivity {
                 curButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mPreviewFrameLayout.removeAllViews();
-                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        inflater.inflate(curID, mPreviewFrameLayout);
+//                        mPreviewFrameLayout.removeAllViews();
+//                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                        inflater.inflate(curID, mPreviewFrameLayout);
                         curSelection = curCount - 1;
                     }
                 });
@@ -77,9 +77,9 @@ public class MenuActivity extends AppCompatActivity {
             throw e;
         }
 
-        mPreviewFrameLayout.removeAllViews();
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
+//        mPreviewFrameLayout.removeAllViews();
+//        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
         curSelection = 0;
 
         setLayoutsChoice();
@@ -108,8 +108,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void menuButtonOk(View view) {
-        Intent intent = new Intent(this, PlayActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         intent.putExtra("cur_layout", variatyLayoutsID.get(curSelection));
+        intent.putExtra("number_choice", curSelection + 1);
         startActivity(intent);
     }
 

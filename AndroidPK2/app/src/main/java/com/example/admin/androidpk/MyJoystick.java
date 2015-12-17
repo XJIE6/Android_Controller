@@ -12,7 +12,7 @@ import com.zerokol.views.JoystickView;
 public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMoveListener, Settingable {
     JoystickView joystick;
     int prevComm = -1;
-    int[] settings;
+    Integer[] settings;
 
     public MyJoystick(Context context) throws Exception {
         super(context);
@@ -40,6 +40,7 @@ public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMo
 
     @Override
     public void onValueChanged(int a, int aa, int curComm) {
+        if (!MainActivity.isStart) return;
         if (prevComm != curComm) {
             if (prevComm != 0) {
                 MainActivity.send(settings[release(prevComm)]);
@@ -52,7 +53,7 @@ public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMo
     }
 
     @Override
-    public void setSettings(int[] settings) {
+    public void setSettings(Integer[] settings) {
         this.settings = settings;
     }
 }

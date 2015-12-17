@@ -18,7 +18,7 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
     private final SensorManager msensorManager; //Менеджер сенсоров аппрата
 
     int prevComm = -1;
-    int[] settings;
+    Integer[] settings;
 
     private float[] rotationMatrix;     //Матрица поворота
     private float[] accelData;           //Данные с акселерометра
@@ -71,6 +71,7 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if (!MainActivity.isStart) return;
         loadNewSensorData(event); // Получаем данные с датчика
         SensorManager.getRotationMatrix(rotationMatrix, null, accelData, magnetData); //Получаем матрицу поворота
         SensorManager.getOrientation(rotationMatrix, OrientationData); //Получаем данные ориентации устройства в пространстве
@@ -92,7 +93,7 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
     }
 
     @Override
-    public void setSettings(int[] settings) {
+    public void setSettings(Integer[] settings) {
         this.settings = settings;
     }
 }

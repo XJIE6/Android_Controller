@@ -21,8 +21,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-    public static Queue<Integer> mail = new LinkedList<>();
-    EditText mEditText;
+    public static final Queue<Integer> mail = new LinkedList<>();
+    private EditText mEditText;
+    public static final Boolean isStart = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

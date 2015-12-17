@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
  */
 public class MyButton extends FrameLayout implements View.OnTouchListener, Settingable{
     Button button;
-    int[] settings;
+    Integer[] settings;
     public MyButton(Context context) throws Exception {
         super(context);
         throw new Exception("Wrong button constructor");
@@ -33,7 +33,7 @@ public class MyButton extends FrameLayout implements View.OnTouchListener, Setti
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
+        if (!MainActivity.isStart) return false;
         Log.d(MainActivity.TAG, "Touched!");
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             MainActivity.send(settings[0]);
@@ -45,7 +45,7 @@ public class MyButton extends FrameLayout implements View.OnTouchListener, Setti
     }
 
     @Override
-    public void setSettings(int[] settings) {
+    public void setSettings(Integer[] settings) {
         Log.d(MainActivity.TAG, "Setted!");
         this.settings = settings;
     }
