@@ -154,7 +154,13 @@ public class SettingsActivity extends AppCompatActivity {
             for (EditText editText : viewEditTextMap.get(viewId)) {
                 String[] realCommands = editText.getText().toString().split(" ");
                 Log.d(TAG, "#" + realCommands.length);
-                send(realCommands.length);
+                if ((realCommands.length == 1) && (realCommands[0] == "")) {
+                    send(0);
+                    send(0);
+                    continue;
+                } else {
+                    send(realCommands.length);
+                }
                 for (int j = 0; j < realCommands.length; j++) {
                     Log.d(TAG, "^" + realCommands[j]);
                     send(Integer.parseInt(realCommands[j]));
@@ -219,7 +225,7 @@ public class SettingsActivity extends AppCompatActivity {
                 LinearLayout curButtonSettings = createItem("Button_" + ((MyButton)view).getLabel(countButton),
                         MAGIC_NUMBER_BUTTON + countButton - 1, commands, view);
                 mSettingsLayout.addView(curButtonSettings);
-            } else if (view.getClass() == JoystickView.class) {
+            } else if (view.getClass() == MyJoystick.class) {
                 countJoystick++;
                 for (int j = 0; j < 8; j++) {
                     String commands = null;
