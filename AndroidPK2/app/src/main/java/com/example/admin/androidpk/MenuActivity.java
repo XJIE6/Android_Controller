@@ -109,7 +109,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void menuButtonOk(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
-        intent.putExtra("cur_layout", variatyLayoutsID.get(curSelection));
+        intent.putExtra("cur_layout_id", variatyLayoutsID.get(curSelection));
         intent.putExtra("number_choice", curSelection + 1);
         startActivity(intent);
     }

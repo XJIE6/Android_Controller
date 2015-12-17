@@ -94,6 +94,14 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
 
     @Override
     public void setSettings(Integer[] settings) {
-        this.settings = settings;
+        this.settings = new Integer[settings.length];
+        for (int i = 0; i < settings.length; i++) {
+            this.settings[i] = settings[i];
+        }
+    }
+
+    @Override
+    public String getLabel(int counter) {
+        return ("" + counter);
     }
 }

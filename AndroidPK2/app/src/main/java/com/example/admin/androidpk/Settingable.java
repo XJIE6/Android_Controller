@@ -5,4 +5,5 @@ package com.example.admin.androidpk;
  */
 public interface Settingable {
     void setSettings(Integer[] settings);
+    String getLabel(int counter);
 }

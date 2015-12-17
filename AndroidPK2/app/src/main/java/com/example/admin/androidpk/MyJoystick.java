@@ -12,6 +12,7 @@ import com.zerokol.views.JoystickView;
 public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMoveListener, Settingable {
     JoystickView joystick;
     int prevComm = -1;
+    String label = null;
     Integer[] settings;
 
     public MyJoystick(Context context) throws Exception {
@@ -50,6 +51,14 @@ public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMo
                 MainActivity.send(settings[push(prevComm)]);
             }
         }
+    }
+
+    @Override
+    public String getLabel(int counter) {
+        if (label == null) {
+            return ("" + counter);
+        }
+        return label;
     }
 
     @Override

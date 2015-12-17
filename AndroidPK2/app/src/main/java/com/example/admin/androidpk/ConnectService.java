@@ -175,7 +175,7 @@ public class ConnectService extends IntentService {
 
                         out.writeInt(2);*/
 
-                        int [] arr = new int[]{1, 30,
+/*                        int [] arr = new int[]{1, 30,
                                 1, 87, //w
                                 1, -87,
                                 1, 68, //d
@@ -214,7 +214,7 @@ public class ConnectService extends IntentService {
                         }
                         out.flush();
                         Log.d(MainActivity.TAG, "WOW");
-
+*/
                         while (true) {
                             synchronized (MainActivity.mail) {
                                 while (MainActivity.mail.isEmpty()) {
@@ -222,21 +222,12 @@ public class ConnectService extends IntentService {
                                 }
                                 while (!MainActivity.mail.isEmpty()) {
                                     final Integer s = MainActivity.mail.remove();
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                Log.d(MainActivity.TAG, s.toString());
-                                                out.writeInt(s);
-                                                out.flush();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    }).start();
-
+                                    Log.d(MainActivity.TAG, "Service " + s.toString());
+                                    out.writeInt(s);
+                                    out.flush();
                                 }
                             }
+
                         }
                     } catch (Exception x) {
                         x.printStackTrace();

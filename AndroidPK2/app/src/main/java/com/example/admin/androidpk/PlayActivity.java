@@ -1,11 +1,14 @@
 package com.example.admin.androidpk;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.lang.reflect.Field;
 
@@ -14,10 +17,11 @@ import java.lang.reflect.Field;
  */
 public class PlayActivity extends AppCompatActivity{
     private static final String TAG = PlayActivity.class.getSimpleName();
-    private static final String LAYOUT_KEY = "cur_layout";
-    private static final String CHOICE_KEY = "number_choice";
+    private ViewGroup llayout = null;
+    private static final String LAYOUT_KEY = "cur_layout_id";
+    //private static final String CHOICE_KEY = "number_choice";
 
-    public static int getResId(String resName, Class<?> c) {
+ /*   public static int getResId(String resName, Class<?> c) {
 
         try {
             Field idField = c.getDeclaredField(resName);
@@ -31,20 +35,22 @@ public class PlayActivity extends AppCompatActivity{
     private void setSettings(Integer s, Integer[] a) {
         ((Settingable) findViewById(getResources().getIdentifier("View" + s.toString(), "id", getPackageName()))).setSettings(a);
     }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "CreatePlayActivity");
 
-        int curChoice = -1;
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            curChoice = extras.getInt(CHOICE_KEY);
-            setContentView(extras.getInt(LAYOUT_KEY));
-        } else {
+        Intent curIntent = getIntent();
+        if (!curIntent.hasExtra(LAYOUT_KEY)) {
             setContentView(R.layout.invalid);
+        } else {
+            int layoutId = curIntent.getIntExtra(LAYOUT_KEY, 0);
+            setContentView(layoutId);
         }
+
+        SettingsActivity.setSettingsAndSendServer(this);
+        MainActivity.isStart = true;
 
         /*setSettings(1, new int[]{0, 1});
         setSettings(2, new int[]{2, 3});
@@ -58,13 +64,13 @@ public class PlayActivity extends AppCompatActivity{
         setSettings(10, new int[]{12, 13});
         setSettings(11, new int[]{14, 15});*/
         //setSettings(100, new int[]{0, 22, 2, 24, 4, 26, 6, 28, 1, 23, 3, 25, 5, 27, 7, 29});
-        try {
+/*        try {
             UtilsChoice utils = new UtilsChoice(curChoice, 1);
             setSettings(1, (Integer[]) utils.readCommandsFromFileAndSendServer().get(0).toArray());
         } catch (Exception e) {
             Log.d(TAG, "Can't to get current choice.");
             e.printStackTrace();
-        }
+        } */
     }
 
     @Override
@@ -79,5 +85,13 @@ public class PlayActivity extends AppCompatActivity{
             e.printStackTrace();
             throw e;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        MainActivity.send(-1);
+        MainActivity.isStart = false;
     }
 }
