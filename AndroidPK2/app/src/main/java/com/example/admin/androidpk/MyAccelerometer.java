@@ -72,11 +72,13 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (!MainActivity.isStart) return;
+        if (this != SettingsActivity.curAccelerometr) return;
         loadNewSensorData(event); // Получаем данные с датчика
         SensorManager.getRotationMatrix(rotationMatrix, null, accelData, magnetData); //Получаем матрицу поворота
         SensorManager.getOrientation(rotationMatrix, OrientationData); //Получаем данные ориентации устройства в пространстве
         int curComm = getComm((int) Math.round(Math.toDegrees(OrientationData[1])));
         if (prevComm != curComm) {
+            Log.d(MainActivity.TAG, "" + (prevComm + 1));
             if (prevComm != 0) {
                 MainActivity.send(settings[prevComm + 1]);
             }
@@ -94,6 +96,7 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
 
     @Override
     public void setSettings(Integer[] settings) {
+        SettingsActivity.curAccelerometr = this;
         this.settings = new Integer[settings.length];
         for (int i = 0; i < settings.length; i++) {
             this.settings[i] = settings[i];

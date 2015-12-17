@@ -46,6 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences mSettings;
     private String appReference;
     private LinearLayout mSettingsLayout;
+    public static MyAccelerometer curAccelerometr = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
         int curCount = 0;
         for (Integer viewId : viewEditTextMap.keySet()) {
             Integer[] commands = new Integer[2*viewEditTextMap.get(viewId).size()];
+            Log.d(TAG, "" + 2*viewEditTextMap.get(viewId).size());
             for (int i = 0; i < 2*viewEditTextMap.get(viewId).size(); i++) {
                 commands[i] = curCount++;
             }

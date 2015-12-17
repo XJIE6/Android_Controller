@@ -49,9 +49,6 @@ public class PlayActivity extends AppCompatActivity{
             setContentView(layoutId);
         }
 
-        SettingsActivity.setSettingsAndSendServer(this);
-        MainActivity.isStart = true;
-
         /*setSettings(1, new int[]{0, 1});
         setSettings(2, new int[]{2, 3});
         setSettings(3, new int[]{4, 5});
@@ -85,6 +82,9 @@ public class PlayActivity extends AppCompatActivity{
             e.printStackTrace();
             throw e;
         }
+
+        SettingsActivity.setSettingsAndSendServer(this);
+        MainActivity.isStart = true;
     }
 
     @Override
