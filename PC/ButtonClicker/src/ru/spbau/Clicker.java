@@ -118,6 +118,7 @@ public class Clicker implements Runnable {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                break;
             }
         }
         System.out.println("outRun");
@@ -125,12 +126,19 @@ public class Clicker implements Runnable {
     private void addCmd() {
         try {
             int n = in.readInt();
+            System.out.println(n);
             for (int i = 0; i < n; ++i) {
                 int m = in.readInt();
+                System.out.print(m);
+                System.out.print(" -> ");
                 List<Integer> list = new ArrayList<>();
                 for (int j = 0; j < m; ++j) {
-                    list.add(in.readInt());
+                    int k = in.readInt();
+                    list.add(k);
+                    System.out.print(k);
+                    System.out.print(' ');
                 }
+                System.out.println();
                 commands.add(new Command(list));
             }
 
@@ -140,7 +148,7 @@ public class Clicker implements Runnable {
     }
 
     private void runCmd() {
-        System.out.print("inRunCmd");
+        System.out.println("inRunCmd");
         while (true) {
             int cmd = 0;
             try {
@@ -148,6 +156,7 @@ public class Clicker implements Runnable {
                 System.out.println(cmd);
             } catch (IOException e) {
                 e.printStackTrace();
+                break;
             }
             if (cmd == -1) {
                 break;
@@ -157,7 +166,7 @@ public class Clicker implements Runnable {
             }
         }
 
-        System.out.print("outRunCmd");
+        System.out.println("outRunCmd");
     }
     private void newCmd() {
         commands = new ArrayList<>();
