@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -21,8 +24,10 @@ import java.util.ArrayList;
 public class MenuActivity extends AppCompatActivity {
     private static final String TAG = MenuActivity.class.getSimpleName();
     private FrameLayout mPreviewFrameLayout;
-    private LinearLayout mMenuChoiceLayout;
+    private ListView mMenuChoiceListView;
     private int curSelection;
+    private ArrayAdapter<String> listViewAdapter = null;
+    private ArrayList<String> items = new ArrayList<String>();
     private ArrayList<Integer> variatyLayoutsID = new ArrayList<>();
 
     private int setLayoutsChoice() {
@@ -35,20 +40,21 @@ public class MenuActivity extends AppCompatActivity {
                 break;
             } else if (findViewById(count) == null){
                 variatyLayoutsID.add(curLayoutID);
-                Button curButton = new Button(this);
-                curButton.setText("choice " + count);
-                curButton.setId(count);
-                mMenuChoiceLayout.addView(curButton);
+//                Button curButton = new Button(this);
+//                curButton.setText("choice " + count);
+//                curButton.setId(count);
+//                mMenuChoiceListView.addView(curButton);
                 final int curCount = count;
-                curButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                items.add("choice " + count);
+//                curButton.setOnClickListener(new View.OnClickListener() {
+ //                   @Override
+//                    public void onClick(View v) {
 //                        mPreviewFrameLayout.removeAllViews();
 //                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //                        inflater.inflate(curID, mPreviewFrameLayout);
-                        curSelection = curCount - 1;
-                    }
-                });
+//                        curSelection = curCount - 1;
+//                    }
+ //               });
                 Log.d(TAG, curLayout);
             }
         }
@@ -61,7 +67,7 @@ public class MenuActivity extends AppCompatActivity {
         Log.d(TAG, "CreateMenuActivity");
         setContentView(R.layout.activity_menu);
         mPreviewFrameLayout = (FrameLayout) findViewById(R.id.preview_layout);
-        mMenuChoiceLayout = (LinearLayout) findViewById(R.id.menu_choice_view);
+        mMenuChoiceListView = (ListView) findViewById(R.id.menu_choice_view);
     }
 
     @Override
@@ -81,8 +87,18 @@ public class MenuActivity extends AppCompatActivity {
 //        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
         curSelection = 0;
+        items.clear();
 
         setLayoutsChoice();
+        listViewAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        mMenuChoiceListView.setAdapter(listViewAdapter);
+        mMenuChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                curSelection = position;
+            }
+        });
     }
 
     @Override
