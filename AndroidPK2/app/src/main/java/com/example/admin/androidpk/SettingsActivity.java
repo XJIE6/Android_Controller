@@ -218,6 +218,26 @@ public class SettingsActivity extends AppCompatActivity {
         mSettingsLayout.removeAllViews();
         setContentView(mSettingsLayout);
 
+        Button buttonOk = new Button(this);
+        final Context curContext = this;
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveFromEdits();
+                Intent intent = new Intent(curContext, PlayActivity.class);
+                intent.putExtra(LAYOUT_KEY, curIdLayout);
+//                intent.putExtra(CHOICE_KEY, choiceLayout);
+                startActivity(intent);
+            }
+        });
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+        buttonOk.setLayoutParams(params);
+        buttonOk.setText("Ok");
+        mSettingsLayout.addView(buttonOk);
+
+
         for (View view: linearLayoutViews) {
             if (view.getClass() == MyButton.class) {
                 countButton++;
@@ -255,24 +275,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
 
-        Button buttonOk = new Button(this);
-        final Context curContext = this;
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveFromEdits();
-                Intent intent = new Intent(curContext, PlayActivity.class);
-                intent.putExtra(LAYOUT_KEY, curIdLayout);
-//                intent.putExtra(CHOICE_KEY, choiceLayout);
-                startActivity(intent);
-            }
-        });
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        buttonOk.setLayoutParams(params);
-        buttonOk.setText("Ok");
-        mSettingsLayout.addView(buttonOk);
     }
 
     @Override
