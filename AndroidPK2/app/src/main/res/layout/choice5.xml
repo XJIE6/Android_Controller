@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/id_choice_5">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignWithParentIfMissing="false">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="U"
+                android:id="@+id/View1"
+                android:layout_column="2"
+                android:layout_weight="3" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="E"
+                android:id="@+id/View5"
+                android:layout_column="5"
+                android:layout_weight="3" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="U"
+                android:id="@+id/View8"
+                android:layout_column="8"
+                android:layout_weight="3" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="L"
+                android:id="@+id/View4"
+                android:layout_column="1"
+                android:layout_weight="3" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="R"
+                android:id="@+id/View2"
+                android:layout_column="3"
+                android:layout_weight="3" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/textView2"
+                android:layout_weight="1" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="Q"
+                android:id="@+id/View6"
+                android:layout_column="5"
+                android:layout_weight="3" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/textView3"
+                android:layout_weight="1" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="L"
+                android:id="@+id/View11"
+                android:layout_column="7"
+                android:layout_weight="3" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="R"
+                android:id="@+id/View9"
+                android:layout_column="9"
+                android:layout_weight="3" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="D"
+                android:id="@+id/View3"
+                android:layout_column="2"
+                android:layout_weight="3" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="S"
+                android:id="@+id/View7"
+                android:layout_column="5"
+                android:layout_weight="3" />
+
+            <com.example.admin.androidpk.MyButton
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="D"
+                android:id="@+id/View10"
+                android:layout_column="8"
+                android:layout_weight="3" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

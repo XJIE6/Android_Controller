@@ -1,30 +1,27 @@
 package com.example.admin.androidpk;
 
-import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.util.Log;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.zip.Inflater;
 
 /**
  * Created by Admin on 17.10.2015.
  */
 public class PlayActivity extends AppCompatActivity{
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final String LAYOUT_KEY = "cur_layout";
-    private static final String OUT = "out_buffer";
-    DataOutputStream out;
+    private static final String TAG = PlayActivity.class.getSimpleName();
+    private ViewGroup llayout = null;
+    private static final String LAYOUT_KEY = "cur_layout_id";
+    //private static final String CHOICE_KEY = "number_choice";
 
-    public static int getResId(String resName, Class<?> c) {
+ /*   public static int getResId(String resName, Class<?> c) {
 
         try {
             Field idField = c.getDeclaredField(resName);
@@ -35,21 +32,42 @@ public class PlayActivity extends AppCompatActivity{
         }
     }
 
+    private void setSettings(Integer s, Integer[] a) {
+        ((Settingable) findViewById(getResources().getIdentifier("View" + s.toString(), "id", getPackageName()))).setSettings(a);
+    }
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "CreateMainActivity");
-        /*TextView tv = (TextView) findViewById(R.id.textView4);
-        tv.setOnTouchListener(this);*/
+        Log.d(TAG, "CreatePlayActivity");
 
         Intent curIntent = getIntent();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            setContentView(extras.getInt(LAYOUT_KEY));
-            out = (DataOutputStream) extras.get(OUT);
-        } else {
+        if (!curIntent.hasExtra(LAYOUT_KEY)) {
             setContentView(R.layout.invalid);
+        } else {
+            int layoutId = curIntent.getIntExtra(LAYOUT_KEY, 0);
+            setContentView(layoutId);
         }
+
+        /*setSettings(1, new int[]{0, 1});
+        setSettings(2, new int[]{2, 3});
+        setSettings(3, new int[]{4, 5});
+        setSettings(4, new int[]{6, 7});
+        setSettings(5, new int[]{16, 17});
+        setSettings(6, new int[]{18, 19});
+        setSettings(7, new int[]{20, 21});
+        setSettings(8, new int[]{8, 9});
+        setSettings(9, new int[]{10, 11});
+        setSettings(10, new int[]{12, 13});
+        setSettings(11, new int[]{14, 15});*/
+        //setSettings(100, new int[]{0, 22, 2, 24, 4, 26, 6, 28, 1, 23, 3, 25, 5, 27, 7, 29});
+/*        try {
+            UtilsChoice utils = new UtilsChoice(curChoice, 1);
+            setSettings(1, (Integer[]) utils.readCommandsFromFileAndSendServer().get(0).toArray());
+        } catch (Exception e) {
+            Log.d(TAG, "Can't to get current choice.");
+            e.printStackTrace();
+        } */
     }
 
     @Override
@@ -58,49 +76,22 @@ public class PlayActivity extends AppCompatActivity{
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        getSupportActionBar().hide();
+        try {
+            getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        SettingsActivity.setSettingsAndSendServer(this);
+        MainActivity.isStart = true;
     }
 
-    public void spaceOnClick(View view) {
-        Log.d(TAG, "onClickSpace");
-    }
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-    public void up(View view) {
-        MainActivity.send(0);
+        MainActivity.send(-1);
+        MainActivity.isStart = false;
     }
-    public void down(View view) {
-        MainActivity.send(1);
-    }
-    public void left(View view) {
-        MainActivity.send(2);
-    }
-    public void right(View view) {
-        MainActivity.send(3);
-    }
-
-
-    public void ufire(View view) {
-        MainActivity.send(4);
-    }
-    public void dfire(View view) {
-        MainActivity.send(5);
-    }
-    public void lfire(View view) {
-        MainActivity.send(6);
-    }
-    public void rfire(View view) {
-        MainActivity.send(7);
-    }
-
-
-    public void bomb(View view) {
-        MainActivity.send(8);
-    }
-    public void card(View view) {
-        MainActivity.send(9);
-    }
-    public void space(View view) {
-        MainActivity.send(10);
-    }
-
 }

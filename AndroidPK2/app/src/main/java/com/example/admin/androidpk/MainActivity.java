@@ -21,8 +21,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-    public static Queue<Integer> mail = new LinkedList<>();
-    EditText mEditText;
+    public static final Queue<Integer> mail = new LinkedList<>();
+    private EditText mEditText;
+    public static Boolean isStart = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,12 @@ public class MainActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        getSupportActionBar().hide();
+        try {
+            getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NullPointerException in MainActivity.onResume()");
+            throw e;
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

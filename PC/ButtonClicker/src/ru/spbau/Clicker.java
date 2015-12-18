@@ -1,11 +1,8 @@
 package ru.spbau;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,54 +88,43 @@ public class Clicker implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("inRun");
         int cmd;
         try {
             cmd = in.readInt();
             if (cmd != key) {
+                System.out.println("Wrong Key!");
                 return;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         while (true) {
+            System.out.println("inWhile");
             try {
                 cmd = in.readInt();
+                System.out.println(cmd);
                 if (cmd == 0) {
                     break;
                 }
                 if (cmd == 1) {
-                    readCmd();
+                    newCmd();
                 }
                 if (cmd == 2) {
                     runCmd();
                 }
+                if (cmd == 3) {
+                    addCmd();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("outRun");
     }
-    private void runCmd() {
-        while (true) {
-            try {
-                int cmd = in.readInt();
-                if (cmd == -1) {
-                    break;
-                }
-                else  {
-                    commands.get(cmd).run();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void readCmd() {
+    private void addCmd() {
         try {
             int n = in.readInt();
-            commands = new ArrayList<>();
             for (int i = 0; i < n; ++i) {
                 int m = in.readInt();
                 List<Integer> list = new ArrayList<>();
@@ -151,5 +137,30 @@ public class Clicker implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void runCmd() {
+        System.out.print("inRunCmd");
+        while (true) {
+            int cmd = 0;
+            try {
+                cmd = in.readInt();
+                System.out.println(cmd);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (cmd == -1) {
+                break;
+            }
+            else  {
+                commands.get(cmd).run();
+            }
+        }
+
+        System.out.print("outRunCmd");
+    }
+    private void newCmd() {
+        commands = new ArrayList<>();
+        addCmd();
     }
 }

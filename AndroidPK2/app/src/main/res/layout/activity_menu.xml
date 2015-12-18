@@ -17,24 +17,6 @@
             android:id="@+id/menu_choice_view"
             android:layout_height="wrap_content"
             android:layout_weight="0.03">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/A"
-                android:id="@+id/button_A"
-                android:onClick="onClickA" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/B"
-                android:id="@+id/button_B"
-                android:onClick="onClickB" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/C"
-                android:id="@+id/button_C"
-                android:onClick="onClickC" />
         </LinearLayout>
 
         <FrameLayout

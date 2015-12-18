@@ -9,24 +9,59 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
 
 /**
  * Created by Admin on 16.10.2015.
  */
 public class MenuActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
-    FrameLayout mPreviewFrameLayout;
-    int curSelection;
+    private static final String TAG = MenuActivity.class.getSimpleName();
+    private FrameLayout mPreviewFrameLayout;
+    private LinearLayout mMenuChoiceLayout;
+    private int curSelection;
+    private ArrayList<Integer> variatyLayoutsID = new ArrayList<>();
+
+    private int setLayoutsChoice() {
+        int count = 0;
+        String firstPart = "choice";
+        while (++count > 0) {
+            String curLayout = firstPart + count;
+            final int curLayoutID = getResources().getIdentifier(curLayout, "layout", getApplicationContext().getPackageName());
+            if (curLayoutID == 0) {
+                break;
+            } else if (findViewById(count) == null){
+                variatyLayoutsID.add(curLayoutID);
+                Button curButton = new Button(this);
+                curButton.setText("choice " + count);
+                curButton.setId(count);
+                mMenuChoiceLayout.addView(curButton);
+                final int curCount = count;
+                curButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        mPreviewFrameLayout.removeAllViews();
+//                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                        inflater.inflate(curID, mPreviewFrameLayout);
+                        curSelection = curCount - 1;
+                    }
+                });
+                Log.d(TAG, curLayout);
+            }
+        }
+        return count;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "CreateMainActivity");
+        Log.d(TAG, "CreateMenuActivity");
         setContentView(R.layout.activity_menu);
         mPreviewFrameLayout = (FrameLayout) findViewById(R.id.preview_layout);
+        mMenuChoiceLayout = (LinearLayout) findViewById(R.id.menu_choice_view);
     }
 
     @Override
@@ -35,11 +70,19 @@ public class MenuActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        getSupportActionBar().hide();
-        mPreviewFrameLayout.removeAllViews();
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
-        curSelection = R.layout.choice1;
+        try {
+            getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+            Log.d(TAG, "NullPointerException in MenuActivity.onResume()");
+            throw e;
+        }
+
+//        mPreviewFrameLayout.removeAllViews();
+//        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
+        curSelection = 0;
+
+        setLayoutsChoice();
     }
 
     @Override
@@ -64,33 +107,10 @@ public class MenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickA(View view) {
-        Log.d(TAG, "onClickA");
-        mPreviewFrameLayout.removeAllViews();
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
-        curSelection = R.layout.choice1;
-    }
-
-    public void onClickB(View view) {
-        mPreviewFrameLayout.removeAllViews();
-        Log.d(TAG, "onClickB");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice2, mPreviewFrameLayout);
-        curSelection = R.layout.choice2;
-    }
-
-    public void onClickC(View view) {
-        mPreviewFrameLayout.removeAllViews();
-        Log.d(TAG, "onClickC");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.choice3, mPreviewFrameLayout);
-        curSelection = R.layout.choice3;
-    }
-
     public void menuButtonOk(View view) {
-        Intent intent = new Intent(this, PlayActivity.class);
-        intent.putExtra("cur_layout", curSelection);
+        Intent intent = new Intent(this, SettingsActivity.class);
+        intent.putExtra("cur_layout_id", variatyLayoutsID.get(curSelection));
+        intent.putExtra("number_choice", curSelection + 1);
         startActivity(intent);
     }
 
