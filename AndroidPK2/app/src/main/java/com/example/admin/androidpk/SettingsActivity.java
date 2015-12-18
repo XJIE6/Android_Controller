@@ -5,26 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zerokol.views.JoystickView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Admin on 16.12.2015.
@@ -43,9 +41,13 @@ public class SettingsActivity extends AppCompatActivity {
     private int countButton;
     private int countJoystick;
     private int haveAccelerometr;
+    private ArrayList<LinearLayout> items = new ArrayList<>();
+    private MyAdapter adapter = null;
     private SharedPreferences mSettings;
     private String appReference;
-    private LinearLayout mSettingsLayout;
+    private ListView mSettingsListView;
+    private LinearLayout mSettingsSet;
+
     public static MyAccelerometer curAccelerometr = null;
 
     @Override
@@ -53,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.set_settings);
-        mSettingsLayout = (LinearLayout) findViewById(R.id.set_settings);
+        mSettingsSet = (LinearLayout) findViewById(R.id.set_settings);
 
         Log.d(TAG, "CreatePlayActivity");
 
@@ -215,45 +217,8 @@ public class SettingsActivity extends AppCompatActivity {
         haveAccelerometr = 0;
         ArrayList<View> linearLayoutViews = findAllChild(choiceLayout);
 
-        mSettingsLayout.removeAllViews();
-        setContentView(mSettingsLayout);
-
-        for (View view: linearLayoutViews) {
-            if (view.getClass() == MyButton.class) {
-                countButton++;
-                String commands = null;
-                if (mSettings.contains(APP_PREFERENCES_SETTINGS_BUTTONS + countButton))
-                    commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, commands);
-                LinearLayout curButtonSettings = createItem("Button_" + ((MyButton)view).getLabel(countButton),
-                        MAGIC_NUMBER_BUTTON + countButton - 1, commands, view);
-                mSettingsLayout.addView(curButtonSettings);
-            } else if (view.getClass() == MyJoystick.class) {
-                countJoystick++;
-                for (int j = 0; j < 8; j++) {
-                    String commands = null;
-                    if (mSettings.contains(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j))
-                        commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, commands);
-                    LinearLayout curJoystickSettings = createItem("Joystick_" + ((MyJoystick)view).getLabel(countJoystick) +
-                                                                    "; Direction" + j,
-                            MAGIC_NUMBER_JOYSTICK + (countJoystick - 1) * 8 + j, commands, view);
-                    mSettingsLayout.addView(curJoystickSettings);
-                }
-            } else if (view.getClass() == MyAccelerometer.class) {
-                haveAccelerometr++;
-                if (haveAccelerometr > 1) {
-                    throw new IllegalStateException("Some accelerometres in one layout");
-                }
-                String commands = null;
-                if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left"))
-                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left", commands);
-                LinearLayout left = createItem("Left rotation", MAGIC_NUMBER_ACCELEROMETR + 0, commands, view);
-                if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right"))
-                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right", commands);
-                LinearLayout right = createItem("Right rotation", MAGIC_NUMBER_ACCELEROMETR + 1, commands, view);
-                mSettingsLayout.addView(left);
-                mSettingsLayout.addView(right);
-            }
-        }
+        mSettingsListView = new ListView(this);
+        items.clear();
 
         Button buttonOk = new Button(this);
         final Context curContext = this;
@@ -268,16 +233,96 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+        buttonOk.setLayoutParams(params);
+        buttonOk.setText("Ok");
+        mSettingsSet.addView(buttonOk);
+
+
+        Button buttonOk = new Button(this);
+        final Context curContext = this;
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveFromEdits();
+                Intent intent = new Intent(curContext, PlayActivity.class);
+                intent.putExtra(LAYOUT_KEY, curIdLayout);
+//                intent.putExtra(CHOICE_KEY, choiceLayout);
+                startActivity(intent);
+            }
+        });
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
         buttonOk.setLayoutParams(params);
         buttonOk.setText("Ok");
         mSettingsLayout.addView(buttonOk);
+
+
+        for (View view: linearLayoutViews) {
+            if (view.getClass() == MyButton.class) {
+                countButton++;
+                String commands = null;
+                if (mSettings.contains(APP_PREFERENCES_SETTINGS_BUTTONS + countButton))
+                    commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, commands);
+                LinearLayout curButtonSettings = createItem("Button_" + ((MyButton)view).getLabel(countButton),
+                        MAGIC_NUMBER_BUTTON + countButton - 1, commands, view);
+                items.add(curButtonSettings);
+            } else if (view.getClass() == MyJoystick.class) {
+                countJoystick++;
+                for (int j = 0; j < 8; j++) {
+                    String commands = null;
+                    if (mSettings.contains(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j))
+                        commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, commands);
+                    LinearLayout curJoystickSettings = createItem("Joystick_" + ((MyJoystick)view).getLabel(countJoystick) +
+                                                                    "; Direction" + j,
+                            MAGIC_NUMBER_JOYSTICK + (countJoystick - 1) * 8 + j, commands, view);
+                    items.add(curJoystickSettings);
+                }
+            } else if (view.getClass() == MyAccelerometer.class) {
+                haveAccelerometr++;
+                if (haveAccelerometr > 1) {
+                    throw new IllegalStateException("Some accelerometres in one layout");
+                }
+                String commands = null;
+                if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left"))
+                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left", commands);
+                LinearLayout left = createItem("Left rotation", MAGIC_NUMBER_ACCELEROMETR + 0, commands, view);
+                if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right"))
+                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right", commands);
+                LinearLayout right = createItem("Right rotation", MAGIC_NUMBER_ACCELEROMETR + 1, commands, view);
+                items.add(left);
+                items.add(right);
+            }
+        }
+
+        adapter = new MyAdapter(this, items);
+        mSettingsListView.setAdapter(adapter);
+        mSettingsSet.addView(mSettingsListView);
+        mSettingsListView.setFocusable(false);
+/*        mSettingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mSettingsListView.setSelection(position);
+                mSettingsListView.requestFocus();
+            }
+        });
+*/
+//        EditText ed = new EditText(this);
+ //       arl.add(ed);
+ //       ArrayAdapter<EditText> aa = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arl);
+
+ //       ListView lv = new ListView(this);
+  //      lv.setAdapter(aa);
+
+ //       mSettingsSet.addView(lv);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mSettingsLayout.removeAllViews();
+        mSettingsSet.removeAllViews();
     }
 }
