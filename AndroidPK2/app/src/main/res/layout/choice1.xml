@@ -3,11 +3,28 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:gravity="bottom|center"
     android:id="@+id/id_choice_1">
-    <com.example.admin.androidpk.MyJoystick
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/View100"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentRight="false"
-        android:textSize="20dp"/>
+        android:layout_height="match_parent">
+
+        <com.example.admin.androidpk.MyJoystick
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/View100"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="false"
+            android:textSize="20dp"
+            android:layout_weight="1" />
+
+        <com.example.admin.androidpk.MyJoystick
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/View101"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="false"
+            android:textSize="20dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 </RelativeLayout>
