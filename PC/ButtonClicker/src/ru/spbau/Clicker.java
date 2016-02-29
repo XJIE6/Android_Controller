@@ -15,31 +15,17 @@ public class Clicker implements Runnable {
     ArrayList<Command> commands;
 
 
-    public Clicker() {
+    public Clicker() throws IOException {
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
-        key = abs(rand.nextInt()) % (1 << 10);
+        key = rand.nextInt(1 << 10);
         ServerSocket s;
-        try {
-            s = new ServerSocket(0);
-            String ip = InetAddress.getLocalHost().toString().split("/")[1];
-            int port = s.getLocalPort();
-            System.out.println(ip);
-            System.out.println(port);
-            System.out.println(key);
-            System.out.println("Enter '" + getCode(ip, port, key) + "' into your phone!");
-            in = new DataInputStream(s.accept().getInputStream());
-            System.out.println("Accept!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private int abs(int i) {
-        if (i < 0) {
-            return -i;
-        }
-        return i;
+        s = new ServerSocket(0);
+        String ip = InetAddress.getLocalHost().toString().split("/")[1];
+        int port = s.getLocalPort();
+        System.out.println("Enter '" + getCode(ip, port, key) + "' into your phone!");
+        in = new DataInputStream(s.accept().getInputStream());
+        System.out.println("Accept!");
     }
 
 
@@ -69,7 +55,8 @@ public class Clicker implements Runnable {
             try {
                 robot = new Robot();
             } catch (AWTException e) {
-                e.printStackTrace();
+                System.out.print("Your computer is not supported.\n");
+                System.exit(0);
             }
         }
 
@@ -88,22 +75,19 @@ public class Clicker implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("inRun");
         int cmd;
         try {
             cmd = in.readInt();
             if (cmd != key) {
-                System.out.println("Wrong Key!");
                 return;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.print("Connection problem. Connection closed. Try to create new connection\n");
+            return;
         }
         while (true) {
-            System.out.println("inWhile");
             try {
                 cmd = in.readInt();
-                System.out.println(cmd);
                 if (cmd == 0) {
                     break;
                 }
@@ -117,38 +101,26 @@ public class Clicker implements Runnable {
                     addCmd();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.print("Connection problem. Connection closed. Try to create new connection\n");
+                return;
             }
         }
-        System.out.println("outRun");
     }
-    private void addCmd() {
-        try {
-            int n = in.readInt();
-            for (int i = 0; i < n; ++i) {
-                int m = in.readInt();
-                List<Integer> list = new ArrayList<>();
-                for (int j = 0; j < m; ++j) {
-                    list.add(in.readInt());
-                }
-                commands.add(new Command(list));
+    private void addCmd() throws IOException {
+        int n = in.readInt();
+        for (int i = 0; i < n; ++i) {
+            int m = in.readInt();
+            List<Integer> list = new ArrayList<>();
+            for (int j = 0; j < m; ++j) {
+                list.add(in.readInt());
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            commands.add(new Command(list));
         }
     }
 
-    private void runCmd() {
-        System.out.print("inRunCmd");
+    private void runCmd() throws IOException {
         while (true) {
-            int cmd = 0;
-            try {
-                cmd = in.readInt();
-                System.out.println(cmd);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            int cmd = in.readInt();
             if (cmd == -1) {
                 break;
             }
@@ -156,10 +128,8 @@ public class Clicker implements Runnable {
                 commands.get(cmd).run();
             }
         }
-
-        System.out.print("outRunCmd");
     }
-    private void newCmd() {
+    private void newCmd() throws IOException {
         commands = new ArrayList<>();
         addCmd();
     }

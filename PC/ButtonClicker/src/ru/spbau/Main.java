@@ -1,21 +1,27 @@
 package ru.spbau;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hi, here is our amazing application! Write 'new' to create new connection, or write 'exit' to exit!");
+        System.out.println("Hi, here is our amazing application! Write 'new' to create new connection, or write 'exit' to exit!\n");
         Scanner in = new Scanner(System.in);
         while (true) {
             String s = in.nextLine();
-            if (s.equals("new")) {
-                new Thread(new Clicker()).start();
-            }
-            else if (s.equals("exit")) {
-                break;
-            }
-            else {
-                System.out.println("Unknown command '" + s + "'! Please, try again!");
+            switch(s) {
+                case "new":
+                    try {
+                        Thread newThread = new Thread(new Clicker());
+                        newThread.setDaemon(true);
+                        newThread.start();
+                    } catch (IOException e) {
+                        System.out.print("Connection problem. Connection closed. Try to create new connection\n");
+                    }
+                case "exit":
+                    return;
+                default:
+                    System.out.println("Unknown command '" + s + "'! Please, try again!\n");
             }
         }
     }
