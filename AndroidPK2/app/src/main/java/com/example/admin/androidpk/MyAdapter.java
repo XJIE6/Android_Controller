@@ -1,47 +1,95 @@
 package com.example.admin.androidpk;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import java.util.AbstractSet;
 import java.util.ArrayList;
 
-/**
- * Created by Admin on 18.12.2015.
- */
 public class MyAdapter extends BaseAdapter {
+    private class ViewHolder {
+        TextView textView;
+        EditText editText;
+        int ref;
+    }
 
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<LinearLayout> objects;
+    ArrayList<ListItem> items = new ArrayList();
 
-    MyAdapter(Context context, ArrayList<LinearLayout> linearLayouts) {
+    MyAdapter(Context context, ArrayList<ListItem> items) {
         ctx = context;
-        objects = linearLayouts;
+        this.items.addAll(items);
+        notifyDataSetChanged();
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return objects.size();
+        return items.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return objects.get(position);
+        return items.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return objects.get(position).getId();
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return (View)getItem(position);
+        final ViewHolder holder;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = lInflater.inflate(R.layout.list_item, null);
+            holder.textView = (TextView) convertView.findViewById(R.id.textView1);
+            holder.editText = (EditText) convertView.findViewById(R.id.editText1);
+
+            convertView.setTag(holder);
+
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.ref = position;
+        if (holder.textView == null) {holder.textView = new TextView(ctx); }
+        if (holder.editText == null) {holder.editText = new EditText(ctx); }
+        holder.textView.setText(items.get(position).textView.getText());
+        holder.editText.setText(items.get(position).editText.getText());
+        holder.editText.setId(position);
+        holder.editText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+                items.get(holder.ref).editText.setText(arg0.toString());
+            }
+        });
+
+        return convertView;
     }
 }

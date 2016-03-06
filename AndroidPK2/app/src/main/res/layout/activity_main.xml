@@ -20,7 +20,7 @@
             android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:id="@+id/edit_text_IP"
-            android:hint="Введите IP"
+            android:hint="Введите код"
             android:textIsSelectable="false"
             android:allowUndo="false"
             android:autoText="false"
