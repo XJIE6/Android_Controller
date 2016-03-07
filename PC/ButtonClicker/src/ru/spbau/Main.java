@@ -22,6 +22,7 @@ public class Main {
                     } catch (IOException e) {
                         System.out.print("Connection problem. Connection closed. Try to create new connection\n");
                     }
+                    break;
                 case "exit":
                     return;
                 default:
