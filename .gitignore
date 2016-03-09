@@ -37,3 +37,5 @@ proguard/
 .idea/
 /*/.idea/
 target/**
+
+!*.jar
