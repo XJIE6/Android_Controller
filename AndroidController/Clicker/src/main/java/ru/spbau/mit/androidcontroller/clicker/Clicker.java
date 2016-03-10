@@ -30,25 +30,6 @@ public class Clicker implements Runnable { //this class creates connection with 
         System.out.println("Accept!");
     }
 
-
-    private static String getCode(String ip, long port, long key) {
-        long res = 0;
-        int i = 0;
-        for (String s : ip.split("\\.")) {
-            res += Long.parseLong(s) << i;
-            i += 8;
-        }
-        res += port << 32;
-        res += key << 48;
-        String ans = "";
-        while (res != 0) {
-            ans = (char)((res % 94) + 33) + ans;
-            res /= 94;
-        }
-
-        return ans;
-    }
-
     class Command implements Runnable{
         private  List<Integer> list;
         Robot robot;
