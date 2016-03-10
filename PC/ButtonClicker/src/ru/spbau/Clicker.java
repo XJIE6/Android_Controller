@@ -22,6 +22,7 @@ public class Clicker implements Runnable {
         ServerSocket s;
         s = new ServerSocket(0);
         String ip = InetAddress.getLocalHost().toString().split("/")[1];
+        System.out.print(InetAddress.getLocalHost().toString());
         int port = s.getLocalPort();
         System.out.println("Enter '" + getCode(ip, port, key) + "' into your phone!");
         in = new DataInputStream(s.accept().getInputStream());
