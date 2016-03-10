@@ -8,12 +8,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
 
-/**
- * Created by urijkravcenko on 16/12/15.
- */
 public class MyAccelerometer extends FrameLayout implements SensorEventListener, Settingable {
 
     private final SensorManager msensorManager; //Менеджер сенсоров аппрата

@@ -1,7 +1,6 @@
 package ru.spbau.mit.androidcontroller.controller;
 
 
-import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
@@ -9,13 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import java.lang.reflect.Field;
-
-/**
- * Created by Admin on 17.10.2015.
- */
 public class PlayActivity extends AppCompatActivity{
     private static final String TAG = PlayActivity.class.getSimpleName();
     private ViewGroup llayout = null;
@@ -49,19 +42,6 @@ public class PlayActivity extends AppCompatActivity{
             int layoutId = curIntent.getIntExtra(LAYOUT_KEY, 0);
             setContentView(layoutId);
         }
-
-        /*setSettings(1, new int[]{0, 1});
-        setSettings(2, new int[]{2, 3});
-        setSettings(3, new int[]{4, 5});
-        setSettings(4, new int[]{6, 7});
-        setSettings(5, new int[]{16, 17});
-        setSettings(6, new int[]{18, 19});
-        setSettings(7, new int[]{20, 21});
-        setSettings(8, new int[]{8, 9});
-        setSettings(9, new int[]{10, 11});
-        setSettings(10, new int[]{12, 13});
-        setSettings(11, new int[]{14, 15});*/
-        //setSettings(100, new int[]{0, 22, 2, 24, 4, 26, 6, 28, 1, 23, 3, 25, 5, 27, 7, 29});
 /*        try {
             UtilsChoice utils = new UtilsChoice(curChoice, 1);
             setSettings(1, (Integer[]) utils.readCommandsFromFileAndSendServer().get(0).toArray());

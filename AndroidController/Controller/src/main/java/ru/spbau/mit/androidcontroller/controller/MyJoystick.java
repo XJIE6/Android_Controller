@@ -1,15 +1,11 @@
 package ru.spbau.mit.androidcontroller.controller;
 
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.zerokol.views.JoystickView;
 
-/**
- * Created by urijkravcenko on 14/12/15.
- */
 public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMoveListener, Settingable {
     JoystickView joystick;
     int prevComm = -1;

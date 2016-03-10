@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-/**
- * Created by urijkravcenko on 14/12/15.
- */
 public class MyButton extends FrameLayout implements View.OnTouchListener, Settingable{
     private static final String TAG = SettingsActivity.class.getSimpleName();
     Button button;

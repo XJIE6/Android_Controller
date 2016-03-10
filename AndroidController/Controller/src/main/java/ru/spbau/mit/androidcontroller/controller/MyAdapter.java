@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.AbstractSet;
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter {

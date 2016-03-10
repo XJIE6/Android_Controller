@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-/**
- * Created by Admin on 17.10.2015.
- */
 public class InfoActivity extends AppCompatActivity {
     TextView mTextView;
     static final String inform = "information";

@@ -7,9 +7,6 @@ import android.util.Log;
 import java.io.DataOutputStream;
 import ru.spbau.mit.androidcontroller.tools.Connector;
 
-/**
- * Created by Admin on 18.10.2015.
- */
 public class ConnectService extends IntentService {
     static final String OUT = "out_buffer";
     DataOutputStream out;
