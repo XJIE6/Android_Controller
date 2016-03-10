@@ -24,7 +24,7 @@ public class MenuActivity extends AppCompatActivity {
     private ArrayList<String> items = new ArrayList<String>();
     private ArrayList<Integer> variatyLayoutsID = new ArrayList<>();
 
-    private int setLayoutsChoice() {
+    private int setLayoutsChoice() { //compute count of choices
         int count = 0;
         String firstPart = "choice";
         while (++count > 0) {
@@ -34,21 +34,7 @@ public class MenuActivity extends AppCompatActivity {
                 break;
             } else if (findViewById(count) == null){
                 variatyLayoutsID.add(curLayoutID);
-//                Button curButton = new Button(this);
-//                curButton.setText("choice " + count);
-//                curButton.setId(count);
-//                mMenuChoiceListView.addView(curButton);
-                final int curCount = count;
                 items.add("choice " + count);
-//                curButton.setOnClickListener(new View.OnClickListener() {
- //                   @Override
-//                    public void onClick(View v) {
-//                        mPreviewFrameLayout.removeAllViews();
-//                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//                        inflater.inflate(curID, mPreviewFrameLayout);
-//                        curSelection = curCount - 1;
-//                    }
- //               });
                 Log.d(TAG, curLayout);
             }
         }
@@ -67,7 +53,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        View decorView = getWindow().getDecorView();
+        View decorView = getWindow().getDecorView();    // hide action bar
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         try {
@@ -77,14 +63,11 @@ public class MenuActivity extends AppCompatActivity {
             throw e;
         }
 
-//        mPreviewFrameLayout.removeAllViews();
-//        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        inflater.inflate(R.layout.choice1, mPreviewFrameLayout);
         curSelection = 0;
         items.clear();
 
         setLayoutsChoice();
-        listViewAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        listViewAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
         mMenuChoiceListView.setAdapter(listViewAdapter);
         mMenuChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
@@ -97,19 +80,14 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

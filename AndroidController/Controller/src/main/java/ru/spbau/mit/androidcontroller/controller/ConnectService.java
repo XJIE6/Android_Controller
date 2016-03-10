@@ -15,7 +15,7 @@ public class ConnectService extends IntentService {
         super("ConnectService");
     }
 
-    boolean tryToConnect(final String address) {
+    boolean tryToConnect(final String address) { //try to create a connection
         try {
 
             new Thread() {
@@ -53,13 +53,12 @@ public class ConnectService extends IntentService {
     protected void onHandleIntent(Intent curIntent) {
         Bundle extras = curIntent.getExtras();
         String curIP = extras.getString(IP);
-        if (extras == null || curIP == null) {
+        if (curIP == null) {
             Intent intent = new Intent(this, InfoActivity.class);
             intent.putExtra("information", "Error");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
-//            sendBroadcast(new Intent("finishDownloadIntent"));
             if (tryToConnect(curIP)) {
                 Intent intent = new Intent(this, MenuActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

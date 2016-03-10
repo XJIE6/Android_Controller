@@ -13,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,18 +24,15 @@ public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
     private static final String LAYOUT_KEY = "cur_layout_id";
     private static final String CHOICE_KEY = "number_choice";
-    private static final int MAGIC_NUMBER_BUTTON = 100; //it is unlikely to be 100 choices, so id Buttons from MenuActivity will be different
-    private static final int MAGIC_NUMBER_ACCELEROMETR = 200;
-    private static final int MAGIC_NUMBER_JOYSTICK = 300;
     public static final String APP_PREFERENCES_SETTINGS_BUTTONS = "settings_buttons";
     public static final String APP_REFERENCE_SETTINGS_JOYSTICKS = "settings_joystick";
     public static final String APP_REFERENCE_SETTINGS_ACCELEROMETR = "settings_accelerometr";
     public static Map<Integer, ArrayList<String>> viewEditTextMap = new HashMap<>();
     private int countButton;
     private int countJoystick;
-    private int haveAccelerometr;
+    private int haveAccelerometer;
     private ArrayList<ListItem> items = new ArrayList<>();
-    private MyAdapter adapter = null;
+    private EditViewAdapter adapter = null;
     private SharedPreferences mSettings;
     private String appReference;
     private ListView mSettingsListView;
@@ -69,50 +65,28 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    private ListItem createItem(String textView, int EditId, String commands, View view) {
-        LinearLayout curViewSettings = new LinearLayout(this);
-        LayoutParams linearParams1 = new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT);
-        curViewSettings.setOrientation(LinearLayout.HORIZONTAL);
-        TextView curTextView = new TextView(this);
-        LayoutParams linearParams2 = new LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        curTextView.setText(textView);
-        EditText curEditText = new EditText(this);
-        LayoutParams linearParams3 = new LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        curEditText.setId(EditId);
-        curEditText.setHint("Commands(sequential)");
-        if (commands != null) {
-            curEditText.setText(commands);
-        }
-        curViewSettings.addView(curTextView, linearParams2);
-        curViewSettings.addView(curEditText, linearParams3);
-
-        return new ListItem(curViewSettings, curEditText, curTextView, view);
+    private ListItem createItem(String textView, String commands, View view) {
+        return new ListItem(commands, textView, view);
     }
 
-    private void saveFromEdits(int curIdLayout, MyAdapter adapter, int countButton, int countJoystick, int haveAccelerometr) {
+    private void saveFromEdits(int curIdLayout, EditViewAdapter adapter, int countButton, int countJoystick, int haveAccelerometr) {
         SharedPreferences.Editor editor = mSettings.edit();
         for (int i = 1; i <= countButton; i++) {
-            editor.putString(APP_PREFERENCES_SETTINGS_BUTTONS + i, adapter.items.get(i - 1).editText.getText().toString());
+            editor.putString(APP_PREFERENCES_SETTINGS_BUTTONS + i, adapter.items.get(i - 1).editText);
         }
 
         for (int j = 1; j <= countJoystick; j++) {
             for (int dir = 0; dir < 8; dir++) {
                 editor.putString(APP_REFERENCE_SETTINGS_JOYSTICKS + j + "_" + dir,
-                        adapter.items.get(countButton + (j - 1)*8 + dir).editText.getText().toString());
+                        adapter.items.get(countButton + (j - 1)*8 + dir).editText);
             }
         }
 
         if (haveAccelerometr == 1) {
             editor.putString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left",
-                    adapter.items.get(countButton + countJoystick*8).editText.getText().toString());
+                    adapter.items.get(countButton + countJoystick*8).editText);
             editor.putString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right",
-                    adapter.items.get(countButton + countJoystick * 8 + 1).editText.getText().toString());
+                    adapter.items.get(countButton + countJoystick * 8 + 1).editText);
         }
         editor.apply();
     }
@@ -164,11 +138,11 @@ public class SettingsActivity extends AppCompatActivity {
         send(2);
     }
 
-    void saveCommands(MyAdapter adapter, int countButton, int countJoystick, int haveAccelerometr) {
+    void groupById(EditViewAdapter adapter, int countButton, int countJoystick, int haveAccelerometr) {
         for (ListItem li: adapter.items) {
             Integer idView = li.view.getId();
             if (!viewEditTextMap.containsKey(idView)) { viewEditTextMap.put(idView, new ArrayList<String>()); }
-            viewEditTextMap.get(idView).add(li.editText.getText().toString());
+            viewEditTextMap.get(idView).add(li.editText);
         }
     }
 
@@ -176,7 +150,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        viewEditTextMap.clear();
+        viewEditTextMap.clear();            //hide action bar
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
@@ -187,7 +161,7 @@ public class SettingsActivity extends AppCompatActivity {
             throw e;
         }
 
-        final int curChoice;
+        final int curChoice;                //extract curChoice, that take from previous activity
         final int curIdLayout;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -199,25 +173,26 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         appReference = "choice" + curChoice + "_settings";
-        mSettings = getSharedPreferences(appReference, Context.MODE_PRIVATE);
+        mSettings = getSharedPreferences(appReference, Context.MODE_PRIVATE);  //take settings for chosen pattern
 
-        ViewGroup choiceLayout = (ViewGroup) LayoutInflater.from(getBaseContext()).inflate(curIdLayout, null);;
+        // to inflate this layout to be able to find view by id
+        ViewGroup choiceLayout = (ViewGroup) LayoutInflater.from(getBaseContext()).inflate(curIdLayout, null);
         countButton = 0;
         countJoystick = 0;
-        haveAccelerometr = 0;
+        haveAccelerometer = 0;
         ArrayList<View> linearLayoutViews = findAllChild(choiceLayout);
 
         mSettingsListView = new ListView(this);
-        items.clear();
+        items.clear();  // the items of listview
 
+        //find all objects on the pattern and then for each create some items
         for (View view: linearLayoutViews) {
             if (view.getClass() == MyButton.class) {
                 countButton++;
                 String commands = null;
                 if (mSettings.contains(APP_PREFERENCES_SETTINGS_BUTTONS + countButton))
                     commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, commands);
-                ListItem curButtonSettings = createItem("Button_" + ((MyButton)view).getLabel(countButton),
-                        MAGIC_NUMBER_BUTTON + countButton - 1, commands, view);
+                ListItem curButtonSettings = createItem("Button_" + ((MyButton)view).getLabel(countButton), commands, view);
                 items.add(curButtonSettings);
             } else if (view.getClass() == MyJoystick.class) {
                 countJoystick++;
@@ -226,28 +201,28 @@ public class SettingsActivity extends AppCompatActivity {
                     if (mSettings.contains(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j))
                         commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, commands);
                     ListItem curJoystickSettings = createItem("Joystick_" + ((MyJoystick)view).getLabel(countJoystick) +
-                                                                    "; Direction" + j,
-                            MAGIC_NUMBER_JOYSTICK + (countJoystick - 1) * 8 + j, commands, view);
+                                                                    "; Direction" + j, commands, view);
                     items.add(curJoystickSettings);
                 }
             } else if (view.getClass() == MyAccelerometer.class) {
-                haveAccelerometr++;
-                if (haveAccelerometr > 1) {
-                    throw new IllegalStateException("Some accelerometres are in the same layout");
+                haveAccelerometer++;
+                if (haveAccelerometer > 1) {
+                    throw new IllegalStateException("Some accelerometers are in the same layout");
                 }
                 String commands = null;
                 if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left"))
                     commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left", commands);
-                ListItem left = createItem("Left rotation", MAGIC_NUMBER_ACCELEROMETR + 0, commands, view);
+                ListItem left = createItem("Left rotation", commands, view);
                 if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right"))
                     commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right", commands);
-                ListItem right = createItem("Right rotation", MAGIC_NUMBER_ACCELEROMETR + 1, commands, view);
+                ListItem right = createItem("Right rotation", commands, view);
                 items.add(left);
                 items.add(right);
             }
         }
 
-        adapter = new MyAdapter(this, items);
+        //create own adapter to save Edit text and Text view in same time
+        adapter = new EditViewAdapter(this, items);
         mSettingsListView.setAdapter(adapter);
         mSettingsSet.addView(mSettingsListView);
         mSettingsListView.setFocusable(false);
@@ -260,8 +235,9 @@ public class SettingsActivity extends AppCompatActivity {
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveFromEdits(curIdLayout, adapter, countButton, countJoystick, haveAccelerometr);
-                saveCommands(adapter, countButton, countJoystick, haveAccelerometr);
+                //save information in shared preference
+                saveFromEdits(curIdLayout, adapter, countButton, countJoystick, haveAccelerometer);
+                groupById(adapter, countButton, countJoystick, haveAccelerometer); //and save to viewEditTextMap
                 Intent intent = new Intent(curContext, PlayActivity.class);
                 intent.putExtra(LAYOUT_KEY, curIdLayout);
                 startActivity(intent);

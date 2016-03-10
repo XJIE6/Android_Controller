@@ -14,9 +14,9 @@ import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
-    public static final Queue<Integer> mail = new LinkedList<>();
+    public static final Queue<Integer> mail = new LinkedList<>();  //the queue for messages to spend server
     private EditText mEditText;
-    public static Boolean isStart = false;
+    public static Boolean isStart = false;  //does the play activity show or not
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "ResumeMainActivity");
+        Log.d(TAG, "ResumeMainActivity");                    //hide action bar
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -52,12 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -65,27 +60,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static boolean checkValidate(String s) {
-        return true;
-    }
-
     public void ButtonIPClick(View view) {
         Log.d(TAG, "ButtonIPClick");
         String IP = String.valueOf(mEditText.getText());
-        if (checkValidate(IP)) {
-            Intent intent = new Intent(this, DownloadActivity.class);
-            startActivity(intent);
-            intent = new Intent(this, ConnectService.class);
-            intent.putExtra("IP", IP);
-            startService(intent);
-        } else {
-            Intent intent = new Intent(this, InfoActivity.class);
-            intent.putExtra("information", "Wrong IP-ddres");
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, DownloadActivity.class);
+        startActivity(intent);
+        intent = new Intent(this, ConnectService.class);
+        intent.putExtra("IP", IP);
+        startService(intent);
     }
 
-    public static void send(int s) {
+    public static void send(int s) {        // send the messages to the server
         synchronized (MainActivity.mail) {
             MainActivity.mail.add(s);
             MainActivity.mail.notify();
