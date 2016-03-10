@@ -1,0 +1,21 @@
+group 'ru.spbau.mit.androidcontroller.clicker'
+version 'unspecified'
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+
+jar {
+    manifest {
+        attributes 'Main': 'ru.spbau.mit.androidcontroller.clicker'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: '../Tools/build/libs', include: ['*.jar'])
+}
+
+apply plugin: 'idea'

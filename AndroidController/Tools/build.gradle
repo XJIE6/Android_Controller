@@ -1,0 +1,23 @@
+group 'ru.spbau.mit.androidcontroller.tools'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+
+class Compatibility {
+    String version
+
+    Compatibility(String versionValue) {
+        def matcher = (versionValue =~ /Java (\d)/)
+        version = matcher[0][1]
+    }
+
+    String toString() { version }
+}
+
+jar {
+    manifest {
+        attributes 'Connector': 'ru.spbau.mit.androidclicker.tools'
+    }
+}
