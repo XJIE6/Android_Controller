@@ -7,9 +7,23 @@
     <string name="A">A</string>
     <string name="B">B</string>
     <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="L">L</string>
+    <string name="Q">Q</string>
+    <string name="R">R</string>
+    <string name="S">S</string>
+    <string name="U">U</string>
+    <string name="W">W</string>
+    <string name="Button">Button</string>
+    <string name="EnterCode">Введите код</string>
     <string name="choice1">choice1</string>
     <string name="choice2">choice2</string>
     <string name="choice3">choice3</string>
     <string name="SetIP">Введите IP</string>
-    <string name="space">space</string>
+    <string name="space">SPACE</string>
+    <string name="left">LEFT</string>
+    <string name="up">UP</string>
+    <string name="down">DOWN</string>
+    <string name="right">RIGHT</string>
 </resources>

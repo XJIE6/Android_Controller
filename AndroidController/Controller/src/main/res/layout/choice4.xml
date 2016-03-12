@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/test_gradient"
-        android:text="Button"
+        android:text="@string/Button"
+        android:textSize="20sp"
         android:id = "@+id/View1"/>
 
 </LinearLayout>

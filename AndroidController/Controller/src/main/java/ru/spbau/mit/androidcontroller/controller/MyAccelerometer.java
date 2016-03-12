@@ -95,9 +95,7 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
     public void setSettings(Integer[] settings) {
         SettingsActivity.curAccelerometr = this;
         this.settings = new Integer[settings.length];
-        for (int i = 0; i < settings.length; i++) {
-            this.settings[i] = settings[i];
-        }
+        System.arraycopy(settings, 0, this.settings, 0, settings.length);
     }
 
     @Override

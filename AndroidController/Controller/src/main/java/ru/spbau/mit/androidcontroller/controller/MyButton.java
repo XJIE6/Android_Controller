@@ -47,7 +47,7 @@ public class MyButton extends FrameLayout implements View.OnTouchListener, Setti
 
     @Override
     public String getLabel(int counter) {
-        if (button.getText() != null && button.getText().toString() != "") {
+        if (button.getText() != null && !button.getText().toString().equals("")) {
             return button.getText().toString();
         } else return  ("" + counter);
     }

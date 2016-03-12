@@ -21,7 +21,7 @@ public class EditViewAdapter extends BaseAdapter { //Adapter, that creates items
 
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<ListItem> items = new ArrayList();
+    ArrayList<ListItem> items = new ArrayList<>();
 
     EditViewAdapter(Context context, ArrayList<ListItem> items) {
         ctx = context;

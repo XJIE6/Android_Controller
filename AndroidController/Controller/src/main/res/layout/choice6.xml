@@ -21,7 +21,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="A"
+            android:text="@string/A"
             android:id="@+id/button"
             android:layout_weight="1" />
 
@@ -43,7 +43,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="W"
+            android:text="@string/W"
             android:id="@+id/button2"
             android:layout_weight="1" />
 
@@ -58,7 +58,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="S"
+            android:text="@string/S"
             android:id="@+id/button3"
             android:layout_weight="1" />
 
@@ -81,7 +81,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="D"
+            android:text="@string/D"
             android:id="@+id/button4"
             android:layout_weight="1" />
 
@@ -117,21 +117,21 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Q"
+            android:text="@string/Q"
             android:id="@+id/button5"
             android:layout_weight="1" />
 
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="E"
+            android:text="@string/E"
             android:id="@+id/button6"
             android:layout_weight="1" />
 
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="SPACE"
+            android:text="@string/space"
             android:id="@+id/button7"
             android:layout_weight="1" />
     </LinearLayout>
@@ -168,7 +168,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="LEFT"
+            android:text="@string/left"
             android:id="@+id/button8"
             android:layout_weight="1" />
 
@@ -190,7 +190,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="UP"
+            android:text="@string/up"
             android:id="@+id/button9"
             android:layout_weight="1" />
 
@@ -205,7 +205,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="DOWN"
+            android:text="@string/down"
             android:id="@+id/button10"
             android:layout_weight="1" />
     </LinearLayout>
@@ -227,7 +227,7 @@
         <ru.spbau.mit.androidcontroller.controller.MyButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="RIGHT"
+            android:text="@string/right"
             android:id="@+id/button11"
             android:layout_weight="1" />
 

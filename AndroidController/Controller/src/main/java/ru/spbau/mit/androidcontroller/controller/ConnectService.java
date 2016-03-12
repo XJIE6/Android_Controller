@@ -8,7 +8,6 @@ import java.io.DataOutputStream;
 import ru.spbau.mit.androidcontroller.tools.Connector;
 
 public class ConnectService extends IntentService {
-    static final String OUT = "out_buffer";
     DataOutputStream out;
     static final String IP = "IP";
     public ConnectService() {

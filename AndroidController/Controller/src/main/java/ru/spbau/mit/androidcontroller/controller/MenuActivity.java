@@ -1,7 +1,6 @@
 package ru.spbau.mit.androidcontroller.controller;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -10,22 +9,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity {
     private static final String TAG = MenuActivity.class.getSimpleName();
-    private FrameLayout mPreviewFrameLayout;
     private ListView mMenuChoiceListView;
     private int curSelection;
-    private ArrayAdapter<String> listViewAdapter = null;
-    private ArrayList<String> items = new ArrayList<String>();
+    private ArrayList<String> items = new ArrayList<>();
     private ArrayList<Integer> variatyLayoutsID = new ArrayList<>();
 
     private int setLayoutsChoice() { //compute count of choices
@@ -50,7 +44,6 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "CreateMenuActivity");
         setContentView(R.layout.activity_menu);
-        mPreviewFrameLayout = (FrameLayout) findViewById(R.id.preview_layout);
         mMenuChoiceListView = (ListView) findViewById(R.id.menu_choice_view);
     }
 
@@ -71,7 +64,7 @@ public class MenuActivity extends AppCompatActivity {
         items.clear();
 
         setLayoutsChoice();
-        listViewAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         mMenuChoiceListView.setAdapter(listViewAdapter);
         mMenuChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             private View lastSelectedView = null;
@@ -101,12 +94,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return  (id == R.id.action_settings)|| super.onOptionsItemSelected(item);
     }
 
     public void menuButtonOk(View view) {
