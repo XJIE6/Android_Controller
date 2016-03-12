@@ -27,5 +27,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="Tools-1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" exported="" name="Clicker.Clicker" level="project" />
   </component>
 </module>

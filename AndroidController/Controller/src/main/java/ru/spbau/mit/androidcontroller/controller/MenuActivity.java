@@ -1,15 +1,19 @@
 package ru.spbau.mit.androidcontroller.controller;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -67,13 +71,23 @@ public class MenuActivity extends AppCompatActivity {
         items.clear();
 
         setLayoutsChoice();
-        listViewAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
+        listViewAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         mMenuChoiceListView.setAdapter(listViewAdapter);
         mMenuChoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            private View lastSelectedView = null;
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //highlight the selected choice
+                view.setSelected(true);
                 curSelection = position;
+                if (lastSelectedView != null && view != lastSelectedView) {
+                    lastSelectedView.setBackgroundResource(0);
+                }
+                if (view != lastSelectedView) {
+                    view.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.blue));
+                }
+                lastSelectedView = view;
             }
         });
     }

@@ -51,7 +51,7 @@ public class EditViewAdapter extends BaseAdapter { //Adapter, that creates items
         final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = lInflater.inflate(R.layout.list_item, null);
+            convertView = lInflater.inflate(R.layout.settings_list_item, null);
             holder.textView = (TextView) convertView.findViewById(R.id.textView1);
             holder.editText = (EditText) convertView.findViewById(R.id.editText1);
 
