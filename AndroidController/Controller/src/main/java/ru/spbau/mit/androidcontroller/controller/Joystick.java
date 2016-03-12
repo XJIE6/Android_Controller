@@ -6,28 +6,29 @@ import android.widget.FrameLayout;
 
 import com.zerokol.views.JoystickView;
 
-public class MyJoystick extends FrameLayout implements JoystickView.OnJoystickMoveListener, Settingable {
+public class Joystick extends FrameLayout implements JoystickView.OnJoystickMoveListener, Settingable {
     JoystickView joystick;
     int prevComm = -1;
     Integer[] settings;
 
-    public MyJoystick(Context context) throws Exception {
+    public Joystick(Context context) throws Exception {
         super(context);
         throw new Exception("Wrong joystick constructor");
     }
 
-    public MyJoystick(Context context, AttributeSet attrs) {
+    public Joystick(Context context, AttributeSet attrs) {
         super(context, attrs);
         joystick = new JoystickView(context, attrs);
         addView(joystick);
         joystick.setOnJoystickMoveListener(this, JoystickView.DEFAULT_LOOP_INTERVAL);
     }
 
-    public MyJoystick(Context context, AttributeSet attrs, int defStyleAttr) throws Exception {
+    public Joystick(Context context, AttributeSet attrs, int defStyleAttr) throws Exception {
         super(context, attrs, defStyleAttr);
         throw new Exception("Wrong joystick constructor");
     }
 
+    //those two functions helps mapping JoystickWiev commands to settings array
     private int push(int a) {
         return a - 1;
     }
