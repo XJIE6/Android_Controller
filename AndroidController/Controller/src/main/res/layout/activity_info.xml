@@ -21,5 +21,6 @@
         android:layout_height="36dp"
         android:id="@+id/button_Info"
         android:text="@string/OK"
+        android:onClick="buttonInfoClick"
         android:background="#f4f4f4" />
 </LinearLayout>

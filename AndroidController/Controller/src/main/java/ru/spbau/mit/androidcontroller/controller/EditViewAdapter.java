@@ -66,6 +66,7 @@ public class EditViewAdapter extends BaseAdapter { //Adapter, that creates items
         if (holder.editText == null) {holder.editText = new EditText(ctx); }
         holder.textView.setText(items.get(position).textView);
         holder.editText.setText(items.get(position).editText);
+        holder.editText.setHint("enter values through the space");
         holder.editText.setId(position);
         holder.editText.addTextChangedListener(new TextWatcher() {
 

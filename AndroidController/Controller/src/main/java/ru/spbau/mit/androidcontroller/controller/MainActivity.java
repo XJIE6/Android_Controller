@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void ButtonIPClick(View view) {
+    public void buttonIPClick(View view) {
         Log.d(TAG, "ButtonIPClick");
         String IP = String.valueOf(mEditText.getText());
         Intent intent = new Intent(this, DownloadActivity.class);
