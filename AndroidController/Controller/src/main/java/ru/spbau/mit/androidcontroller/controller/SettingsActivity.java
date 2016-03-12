@@ -114,7 +114,11 @@ public class SettingsActivity extends AppCompatActivity {
                 commands[i] = curCount++; //we number all possible set commands
             }
             for (String editText : viewEditTextMap.get(viewId)) {
-                String[] realCommands = editText.split(" "); //get the set of commands
+                if (editText == null) {
+                    editText = "";
+                }
+                String[] realCommands = editText.split(" ");
+                Log.d(TAG, "#" + realCommands.length);
                 if ((realCommands.length == 1) && (realCommands[0].equals(""))) {
                     send(0);
                     continue;
