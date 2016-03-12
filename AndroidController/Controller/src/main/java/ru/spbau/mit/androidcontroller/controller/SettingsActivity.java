@@ -112,6 +112,9 @@ public class SettingsActivity extends AppCompatActivity {
                 commands[i] = curCount++;
             }
             for (String editText : viewEditTextMap.get(viewId)) {
+                if (editText == null) {
+                    editText = "";
+                }
                 String[] realCommands = editText.split(" ");
                 Log.d(TAG, "#" + realCommands.length);
                 if ((realCommands.length == 1) && (realCommands[0] == "")) {
