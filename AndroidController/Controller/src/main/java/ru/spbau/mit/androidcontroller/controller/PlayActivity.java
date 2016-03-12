@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ru.spbau.mit.androidcontroller.tools.Protocol;
+
 public class PlayActivity extends AppCompatActivity{
     private static final String TAG = PlayActivity.class.getSimpleName();
     private static final String LAYOUT_KEY = "cur_layout_id";
@@ -40,7 +42,14 @@ public class PlayActivity extends AppCompatActivity{
             throw e;
         }
 
-        SettingsActivity.setSettingsAndSendServer(this);  //sends to server all commands and etc
+        try {
+            SettingsActivity.setSettingsAndSendServer(this);  //sends to server all commands and etc
+        } catch (NumberFormatException e) {
+            Intent intent = new Intent(this, InfoActivity.class);
+            intent.putExtra(InfoActivity.inform, "Wrong command format");
+            startActivity(intent);
+            finish();
+        }
         MainActivity.isStart = true;
     }
 
@@ -48,7 +57,7 @@ public class PlayActivity extends AppCompatActivity{
     protected void onPause() {
         super.onPause();
 
-        MainActivity.send(-1);
+        MainActivity.send(Protocol.END_RUN_COMMAND);
         MainActivity.isStart = false;
     }
 }

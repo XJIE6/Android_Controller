@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ru.spbau.mit.androidcontroller.tools.Protocol;
+
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
     private static final String LAYOUT_KEY = "cur_layout_id";
@@ -96,49 +98,46 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static void setSettingsAndSendServer(Activity v) {
-        Log.d(TAG, "*1");
-        send(1);
-        int countAllSets = 0;
+        send(Protocol.NEW_COMMAND);
+        int countAllSets = 0;  //количество различных вариантов команд, по одному
+        //для каждого направления джойстика, кнопки и 2 для акселерометра
         for (Integer viewId : viewEditTextMap.keySet()) {
             countAllSets += viewEditTextMap.get(viewId).size();
         }
-        Log.d(TAG, "$" + (2*countAllSets));
-        send(2 * countAllSets);
+        send(2 * countAllSets); //we distinguish commands on touching and
+        // on 'untouching'. We send negative number if untouching.
         int curCount = 0;
         for (Integer viewId : viewEditTextMap.keySet()) {
-            Integer[] commands = new Integer[2*viewEditTextMap.get(viewId).size()];
-            Log.d(TAG, "" + 2*viewEditTextMap.get(viewId).size());
+            Integer[] commands = new Integer[2*viewEditTextMap.get(viewId).size()]; //count of
+            // commands for one view
             for (int i = 0; i < 2*viewEditTextMap.get(viewId).size(); i++) {
-                commands[i] = curCount++;
+                commands[i] = curCount++; //we number all possible set commands
             }
             for (String editText : viewEditTextMap.get(viewId)) {
-                String[] realCommands = editText.split(" ");
-                Log.d(TAG, "#" + realCommands.length);
-                if ((realCommands.length == 1) && (realCommands[0] == "")) {
-                    send(0);
+                String[] realCommands = editText.split(" "); //get the set of commands
+                if ((realCommands.length == 1) && (realCommands[0].equals(""))) {
                     send(0);
                     continue;
                 } else {
                     send(realCommands.length);
                 }
                 for (int j = 0; j < realCommands.length; j++) {
-                    Log.d(TAG, "^" + realCommands[j]);
                     send(Integer.parseInt(realCommands[j]));
                 }
-                Log.d(TAG, "!" + realCommands.length);
                 send(realCommands.length);
                 for (int j = 2*realCommands.length - 1; j >= realCommands.length; j--) {
-                    Log.d(TAG, "" + (-Integer.parseInt(realCommands[j - realCommands.length])));
-                    send(-Integer.parseInt(realCommands[j - realCommands.length]));
+                    send(-Integer.parseInt(realCommands[j - realCommands.length])); //send commands
+                    //on 'untouching'
                 }
             }
             View view = v.findViewById(viewId);
-            ((Settingable) view).setSettings(commands);
+            ((Settingable) view).setSettings(commands); //set associating numbering with direction or
+            // button
         }
-        send(2);
+        send(Protocol.RUN_COMMAND);
     }
 
-    void groupById(EditViewAdapter adapter, int countButton, int countJoystick, int haveAccelerometr) {
+    void groupById(EditViewAdapter adapter, int countButton, int countJoystick, int haveAccelerometer) {
         for (ListItem li: adapter.items) {
             Integer idView = li.view.getId();
             if (!viewEditTextMap.containsKey(idView)) { viewEditTextMap.put(idView, new ArrayList<String>()); }
@@ -241,17 +240,19 @@ public class SettingsActivity extends AppCompatActivity {
                 Intent intent = new Intent(curContext, PlayActivity.class);
                 intent.putExtra(LAYOUT_KEY, curIdLayout);
                 startActivity(intent);
+                }
             }
-        });
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-        params.weight = 0.1f;
-        buttonOk.setLayoutParams(params);
-        buttonOk.setText("Ok");
-        mSettingsSet.addView(buttonOk);
-    }
 
-    @Override
+            );
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
+            params.weight=0.1f;
+            buttonOk.setLayoutParams(params);
+            buttonOk.setText("Ok");
+            mSettingsSet.addView(buttonOk);
+        }
+
+        @Override
     protected void onPause() {
         super.onPause();
         mSettingsSet.removeAllViews();

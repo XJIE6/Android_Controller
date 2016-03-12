@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 public class InfoActivity extends AppCompatActivity {
@@ -17,10 +16,7 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.info_layout);
-//        WindowManager.LayoutParams windowManager = getWindow().getAttributes();
-//        windowManager.dimAmount = 0.75f;
-  //      getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        setContentView(R.layout.activity_info);
         mTextView = (TextView) findViewById(R.id.textViewInfo);
     }
 
@@ -40,9 +36,13 @@ public class InfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null && extras.getString(inform) != null) {
-               mTextView.setText(extras.getString(inform));
+            mTextView.setText(extras.getString(inform));
         } else {
             mTextView.setText("Error");
         }
+    }
+
+    public void buttonInfoClick(View view) {
+        finish();
     }
 }
