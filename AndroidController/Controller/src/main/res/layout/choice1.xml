@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.admin.androidpk.MyJoystick
+        <ru.spbau.mit.androidcontroller.controller.MyJoystick
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/View100"
@@ -18,7 +18,7 @@
             android:textSize="20dp"
             android:layout_weight="1" />
 
-        <com.example.admin.androidpk.MyJoystick
+        <ru.spbau.mit.androidcontroller.controller.MyJoystick
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/View101"

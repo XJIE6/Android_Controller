@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class MyAdapter extends BaseAdapter {
+public class EditViewAdapter extends BaseAdapter { //Adapter, that creates items with TextView and EditText
     private class ViewHolder {
         TextView textView;
         EditText editText;
@@ -23,7 +23,7 @@ public class MyAdapter extends BaseAdapter {
     LayoutInflater lInflater;
     ArrayList<ListItem> items = new ArrayList();
 
-    MyAdapter(Context context, ArrayList<ListItem> items) {
+    EditViewAdapter(Context context, ArrayList<ListItem> items) {
         ctx = context;
         this.items.addAll(items);
         notifyDataSetChanged();
@@ -51,7 +51,7 @@ public class MyAdapter extends BaseAdapter {
         final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = lInflater.inflate(R.layout.list_item, null);
+            convertView = lInflater.inflate(R.layout.settings_list_item, null);
             holder.textView = (TextView) convertView.findViewById(R.id.textView1);
             holder.editText = (EditText) convertView.findViewById(R.id.editText1);
 
@@ -64,28 +64,23 @@ public class MyAdapter extends BaseAdapter {
         holder.ref = position;
         if (holder.textView == null) {holder.textView = new TextView(ctx); }
         if (holder.editText == null) {holder.editText = new EditText(ctx); }
-        holder.textView.setText(items.get(position).textView.getText());
-        holder.editText.setText(items.get(position).editText.getText());
+        holder.textView.setText(items.get(position).textView);
+        holder.editText.setText(items.get(position).editText);
         holder.editText.setId(position);
         holder.editText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-                items.get(holder.ref).editText.setText(arg0.toString());
+                items.get(holder.ref).editText = arg0.toString();
             }
         });
 

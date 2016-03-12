@@ -14,4 +14,6 @@
     <item name="userdeepblue" type="color">#3914AF</item>
     <item name="userdarkblue" type="color">#200772</item>
     <item name="black" type="color">#000000</item>
+    <color name="pressed_color">#4d90fe</color>
+    <color name="default_color">#ffffff</color>
 </resources>

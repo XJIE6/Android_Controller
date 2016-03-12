@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class DownloadActivity extends AppCompatActivity {
+public class DownloadActivity extends AppCompatActivity {   //is showing the text "Downloading"
+                                                            // while connection service is working
     static final String IP = "IP";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

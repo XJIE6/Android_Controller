@@ -14,7 +14,8 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id = "@+id/menu_choice_view"></ListView>
+            android:id = "@+id/menu_choice_view"
+            android:choiceMode="singleChoice"></ListView>
 
         <FrameLayout
             android:layout_width="168dp"

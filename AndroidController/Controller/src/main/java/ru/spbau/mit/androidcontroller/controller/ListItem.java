@@ -7,12 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ListItem {
-    LinearLayout ll;
-    EditText editText;
-    TextView textView;
+    String editText;
+    String textView;
     View view;
-    ListItem(LinearLayout ll, EditText editText, TextView textView, View view) {
-        this.ll = ll;
+    ListItem(String editText, String textView, View view) {
         this.editText = editText;
         this.textView = textView;
         this.view = view;

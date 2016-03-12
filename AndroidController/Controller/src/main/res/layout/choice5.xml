@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:gravity="bottom|center"
     android:id="@+id/id_choice_2">
-    <com.example.admin.androidpk.MyButton
+    <ru.spbau.mit.androidcontroller.controller.MyButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/View10"

@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     android:layout_weight="1">
 
-    <com.example.admin.androidpk.MyButton
+    <ru.spbau.mit.androidcontroller.controller.MyButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/test_gradient"
+        android:text="Button"
         android:id = "@+id/View1"/>
 
 </LinearLayout>
