@@ -21,21 +21,21 @@
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="U"
+                android:text="@string/U"
                 android:id="@+id/View1"
                 android:layout_column="2"/>
 
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="E"
+                android:text="@string/E"
                 android:id="@+id/View5"
                 android:layout_column="5"/>
 
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="U"
+                android:text="@string/U"
                 android:id="@+id/View8"
                 android:layout_column="8"/>
         </TableRow>
@@ -47,14 +47,14 @@
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="L"
+                android:text="@string/L"
                 android:id="@+id/View4"
                 android:layout_column="1"/>
 
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="R"
+                android:text="@string/R"
                 android:id="@+id/View2"
                 android:layout_column="3"/>
 
@@ -67,7 +67,7 @@
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="Q"
+                android:text="@string/Q"
                 android:id="@+id/View6"
                 android:layout_column="5"/>
 
@@ -80,14 +80,14 @@
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="L"
+                android:text="@string/L"
                 android:id="@+id/View11"
                 android:layout_column="7"/>
 
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="R"
+                android:text="@string/R"
                 android:id="@+id/View9"
                 android:layout_column="9"/>
         </TableRow>
@@ -99,21 +99,21 @@
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="D"
+                android:text="@string/D"
                 android:id="@+id/View3"
                 android:layout_column="2"/>
 
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="S"
+                android:text="@string/S"
                 android:id="@+id/View7"
                 android:layout_column="5"/>
 
             <ru.spbau.mit.androidcontroller.controller.OnTouchButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:text="D"
+                android:text="@string/D"
                 android:id="@+id/View10"
                 android:layout_column="8"/>
         </TableRow>

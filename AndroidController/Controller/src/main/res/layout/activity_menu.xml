@@ -15,15 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id = "@+id/menu_choice_view"
-            android:choiceMode="singleChoice"></ListView>
-
-        <FrameLayout
-            android:layout_width="168dp"
-            android:layout_height="300dp"
-            android:layout_gravity="right"
-            android:id="@+id/preview_layout"
-            android:layout_weight="1">
-        </FrameLayout>
+            android:choiceMode="singleChoice">
+        </ListView>
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"

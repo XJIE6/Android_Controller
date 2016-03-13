@@ -7,7 +7,6 @@ import android.util.Log;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 
 import ru.spbau.mit.androidcontroller.tools.Protocol;
 
@@ -44,7 +43,7 @@ public class PlayActivity extends AppCompatActivity{
 
         try {
             SettingsActivity.setSettingsAndSendServer(this);  //sends to server all commands and etc
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IllegalAccessException e) {
             Intent intent = new Intent(this, InfoActivity.class);
             intent.putExtra(InfoActivity.inform, "Wrong command format");
             startActivity(intent);

@@ -14,27 +14,23 @@ public class Clicker implements Runnable { //this class creates connection with 
 
     private long key;
     DataInputStream in;
+    ServerSocket s;
     ArrayList<Command> commands;
 
     private static final int MAX_KEY = 1 << 10;
 
 
-    public Clicker() throws IOException {
+    public Clicker(String ip) throws IOException {
         //random key generation
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         key = rand.nextInt(MAX_KEY);
 
-        ServerSocket s = new ServerSocket(0);
+        s = new ServerSocket(0);
         int port = s.getLocalPort();
-
-        String ip = InetAddress.getLocalHost().toString().split("/")[1];
 
         System.out.println("Enter '" + Connector.encode(ip, port, key) + "' into your phone!");
 
-        in = new DataInputStream(s.accept().getInputStream()); //waiting for connection
-
-        System.out.println("Accept!");
     }
 
     private class Command implements Runnable { //presses/releases integer commends from list
@@ -46,7 +42,7 @@ public class Clicker implements Runnable { //this class creates connection with 
             try {
                 robot = new Robot();
             } catch (AWTException e) {
-                System.out.print("Your computer is not supported.\n");
+                System.out.println("Your computer is not supported.");
                 System.exit(0);
             }
         }
@@ -66,16 +62,25 @@ public class Clicker implements Runnable { //this class creates connection with 
 
     @Override
     public void run() {
+        try {
+            in = new DataInputStream(s.accept().getInputStream()); //waiting for connection
+        } catch (IOException e) {
+            System.out.println("Connection problem. Connection closed. Try to create new connection");
+            return;
+        }
+
+        System.out.println("Accept!");
+
         int cmd;
         //key check
         try {
             cmd = in.readInt();
             if (cmd != key) {
-                System.out.print("Connection with wrong key. Create new connection and try again\n");
+                System.out.println("Connection with wrong key. Create new connection and try again");
                 return;
             }
         } catch (IOException e) {
-            System.out.print("Connection problem. Connection closed. Try to create new connection\n");
+            System.out.println("Connection problem. Connection closed. Try to create new connection");
             return;
         }
         // main loop
@@ -95,7 +100,7 @@ public class Clicker implements Runnable { //this class creates connection with 
                     addCmd();
                 }
             } catch (IOException e) {
-                System.out.print("Connection problem. Connection closed. Try to create new connection\n");
+                System.out.println("Connection problem. Connection closed. Try to create new connection");
                 return;
             }
         }

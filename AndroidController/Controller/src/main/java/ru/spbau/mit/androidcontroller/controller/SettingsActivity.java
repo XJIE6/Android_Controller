@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import ru.spbau.mit.androidcontroller.tools.Protocol;
+import ru.spbau.mit.androidcontroller.tools.HelpfulMethods;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
@@ -36,8 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
     private ArrayList<ListItem> items = new ArrayList<>();
     private EditViewAdapter adapter = null;
     private SharedPreferences mSettings;
-    private String appReference;
-    private ListView mSettingsListView;
     private LinearLayout mSettingsSet;
 
     public static Accelerometer curAccelerometr = null;
@@ -71,7 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
         return new ListItem(commands, textView, view);
     }
 
-    private void saveFromEdits(int curIdLayout, EditViewAdapter adapter, int countButton, int countJoystick, int haveAccelerometr) {
+    private void saveFromEdits(EditViewAdapter adapter, int countButton, int countJoystick, int haveAccelerometr) {
         SharedPreferences.Editor editor = mSettings.edit();
         for (int i = 1; i <= countButton; i++) {
             editor.putString(APP_PREFERENCES_SETTINGS_BUTTONS + i, adapter.items.get(i - 1).editText);
@@ -97,8 +98,8 @@ public class SettingsActivity extends AppCompatActivity {
         MainActivity.send(i);
     }
 
-    public static void setSettingsAndSendServer(Activity v) {
-        send(Protocol.NEW_COMMAND);
+    public static void setSettingsAndSendServer(Activity v) throws IllegalAccessException {
+/*        send(Protocol.NEW_COMMAND);
         int countAllSets = 0;  //количество различных вариантов команд, по одному
         //для каждого направления джойстика, кнопки и 2 для акселерометра
         for (Integer viewId : viewEditTextMap.keySet()) {
@@ -118,15 +119,24 @@ public class SettingsActivity extends AppCompatActivity {
                     editText = "";
                 }
                 String[] realCommands = editText.split(" ");
-                Log.d(TAG, "#" + realCommands.length);
                 if ((realCommands.length == 1) && (realCommands[0].equals(""))) {
                     send(0);
                     continue;
                 } else {
                     send(realCommands.length);
                 }
-                for (int j = 0; j < realCommands.length; j++) {
-                    send(Integer.parseInt(realCommands[j]));
+                for (String realCommand : realCommands) {
+                    if (HelpfulMethods.isNumeric(realCommand)) {
+                        send(Integer.parseInt(realCommand));
+                    } else {
+                        Field[] fields = KeyEvent.class.getDeclaredFields();
+                        for (Field field: fields) {
+                            String event = field.getName();
+                            if (("VK_" + realCommand.toUpperCase()).equals(event)) {
+                                send(field.getInt(null));
+                            }
+                        }
+                    }
                 }
                 send(realCommands.length);
                 for (int j = 2*realCommands.length - 1; j >= realCommands.length; j--) {
@@ -138,10 +148,10 @@ public class SettingsActivity extends AppCompatActivity {
             ((Settingable) view).setSettings(commands); //set associating numbering with direction or
             // button
         }
-        send(Protocol.RUN_COMMAND);
+        send(Protocol.RUN_COMMAND); */
     }
 
-    void groupById(EditViewAdapter adapter, int countButton, int countJoystick, int haveAccelerometer) {
+    void groupById(EditViewAdapter adapter) {
         for (ListItem li: adapter.items) {
             Integer idView = li.view.getId();
             if (!viewEditTextMap.containsKey(idView)) { viewEditTextMap.put(idView, new ArrayList<String>()); }
@@ -175,7 +185,7 @@ public class SettingsActivity extends AppCompatActivity {
             return;
         }
 
-        appReference = "choice" + curChoice + "_settings";
+        String appReference = "choice" + curChoice + "_settings";
         mSettings = getSharedPreferences(appReference, Context.MODE_PRIVATE);  //take settings for chosen pattern
 
         // to inflate this layout to be able to find view by id
@@ -185,7 +195,7 @@ public class SettingsActivity extends AppCompatActivity {
         haveAccelerometer = 0;
         ArrayList<View> linearLayoutViews = findAllChild(choiceLayout);
 
-        mSettingsListView = new ListView(this);
+        ListView mSettingsListView = new ListView(this);
         items.clear();  // the items of listview
 
         //find all objects on the pattern and then for each create some items
@@ -203,8 +213,7 @@ public class SettingsActivity extends AppCompatActivity {
                     String commands = null;
                     if (mSettings.contains(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j))
                         commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, commands);
-                    ListItem curJoystickSettings = createItem("Joystick_" + ((Joystick)view).getLabel(countJoystick) +
-                                                                    "; Direction" + j, commands, view);
+                    ListItem curJoystickSettings = createItem("Joystick_" + ((Joystick)view).getLabel(countJoystick) + "; Direction" + j, commands, view);
                     items.add(curJoystickSettings);
                 }
             } else if (view.getClass() == Accelerometer.class) {
@@ -214,10 +223,10 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 String commands = null;
                 if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left"))
-                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left", commands);
+                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Left", null);
                 ListItem left = createItem("Left rotation", commands, view);
                 if (mSettings.contains(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right"))
-                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right", commands);
+                    commands = mSettings.getString(APP_REFERENCE_SETTINGS_ACCELEROMETR + "_Right", null);
                 ListItem right = createItem("Right rotation", commands, view);
                 items.add(left);
                 items.add(right);
@@ -239,8 +248,8 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //save information in shared preference
-                saveFromEdits(curIdLayout, adapter, countButton, countJoystick, haveAccelerometer);
-                groupById(adapter, countButton, countJoystick, haveAccelerometer); //and save to viewEditTextMap
+                saveFromEdits(adapter, countButton, countJoystick, haveAccelerometer);
+                groupById(adapter); //and save to viewEditTextMap
                 Intent intent = new Intent(curContext, PlayActivity.class);
                 intent.putExtra(LAYOUT_KEY, curIdLayout);
                 startActivity(intent);

@@ -2,9 +2,6 @@ package ru.spbau.mit.androidcontroller.controller;
 
 
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class ListItem {
     String editText;
