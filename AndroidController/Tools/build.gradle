@@ -12,7 +12,6 @@ class Compatibility {
         def matcher = (versionValue =~ /Java (\d)/)
         version = matcher[0][1]
     }
-
     String toString() { version }
 }
 

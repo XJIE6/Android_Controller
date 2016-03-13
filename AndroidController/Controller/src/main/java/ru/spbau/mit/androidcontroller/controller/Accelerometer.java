@@ -10,9 +10,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.FrameLayout;
 
-public class MyAccelerometer extends FrameLayout implements SensorEventListener, Settingable {
+public class Accelerometer extends FrameLayout implements SensorEventListener, Settingable {
 
     private final SensorManager msensorManager; //Менеджер сенсоров аппрата
+
+    private static final int MAX_ANGLE = 10;
 
     int prevComm = -1;
     Integer[] settings;
@@ -22,12 +24,12 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
     private float[] magnetData;       //Данные геомагнитного датчика
     private float[] OrientationData; //Матрица положения в пространстве
 
-    public MyAccelerometer(Context context) throws Exception {
+    public Accelerometer(Context context) throws Exception {
         super(context);
         throw new Exception("Wrong accelerometer constructor");
     }
 
-    public MyAccelerometer(Context context, AttributeSet attrs) {
+    public Accelerometer(Context context, AttributeSet attrs) {
         super(context, attrs);
         msensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
@@ -40,7 +42,7 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
 
     }
 
-    public MyAccelerometer(Context context, AttributeSet attrs, int defStyleAttr) throws Exception {
+    public Accelerometer(Context context, AttributeSet attrs, int defStyleAttr) throws Exception {
         super(context, attrs, defStyleAttr);
         throw new Exception("Wrong accelerometer constructor");
     }
@@ -57,10 +59,10 @@ public class MyAccelerometer extends FrameLayout implements SensorEventListener,
     }
 
     int getComm(int a) {
-        if (a >= 10) {
+        if (a >= MAX_ANGLE) {
             return 1;
         }
-        if (a <= -10) {
+        if (a <= -MAX_ANGLE) {
             return 2;
         }
         return 0;

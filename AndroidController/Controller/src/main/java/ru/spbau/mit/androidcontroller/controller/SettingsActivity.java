@@ -40,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences mSettings;
     private LinearLayout mSettingsSet;
 
-    public static MyAccelerometer curAccelerometr = null;
+    public static Accelerometer curAccelerometr = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,24 +207,23 @@ public class SettingsActivity extends AppCompatActivity {
 
         //find all objects on the pattern and then for each create some items
         for (View view: linearLayoutViews) {
-            if (view.getClass() == MyButton.class) {
+            if (view.getClass() == Button.class) {
                 countButton++;
                 String commands = null;
                 if (mSettings.contains(APP_PREFERENCES_SETTINGS_BUTTONS + countButton))
-                    commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, null);
-                ListItem curButtonSettings = createItem("Button_" + ((MyButton)view).getLabel(countButton), commands, view);
+                    commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, commands);
+                ListItem curButtonSettings = createItem("Button_" + ((OnTouchButton)view).getLabel(countButton), commands, view);
                 items.add(curButtonSettings);
-            } else if (view.getClass() == MyJoystick.class) {
+            } else if (view.getClass() == Joystick.class) {
                 countJoystick++;
                 for (int j = 0; j < 8; j++) {
                     String commands = null;
                     if (mSettings.contains(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j))
-                        commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, null);
-                    ListItem curJoystickSettings = createItem("Joystick_" + ((MyJoystick)view).getLabel(countJoystick) +
-                                                                    "; Direction" + j, commands, view);
+                        commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, commands);
+                    ListItem curJoystickSettings = createItem("Joystick_" + ((Joystick)view).getLabel(countJoystick) + "; Direction" + j, commands, view);
                     items.add(curJoystickSettings);
                 }
-            } else if (view.getClass() == MyAccelerometer.class) {
+            } else if (view.getClass() == Accelerometer.class) {
                 haveAccelerometer++;
                 if (haveAccelerometer > 1) {
                     throw new IllegalStateException("Some accelerometers are in the same layout");

@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:gravity="bottom|center"
     android:id="@+id/id_choice_2">
-    <ru.spbau.mit.androidcontroller.controller.MyAccelerometer
+    <ru.spbau.mit.androidcontroller.controller.Accelerometer
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/View10"
