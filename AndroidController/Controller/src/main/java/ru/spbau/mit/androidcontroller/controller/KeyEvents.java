@@ -1,9 +1,9 @@
-package ru.spbau.mit.androidcontroller.tools;
+package ru.spbau.mit.androidcontroller.controller;
 
 /**
  * Created by n_buga on 13.03.16.
  */
-public class KeyEvent {
+public class KeyEvents {
     /*
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE file distributed with
@@ -20,10 +20,10 @@ public class KeyEvent {
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-/**
- * @author Michael Danilov
- * @version $Revision$
- */
+    /**
+     * @author Michael Danilov
+     * @version $Revision$
+     */
     public static final int KEY_FIRST = 400;
     public static final int KEY_LAST = 402;
     public static final int KEY_TYPED = 400;

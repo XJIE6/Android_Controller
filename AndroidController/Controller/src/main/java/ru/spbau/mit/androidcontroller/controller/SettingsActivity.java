@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.spbau.mit.androidcontroller.tools.Protocol;
-import ru.spbau.mit.androidcontroller.tools.HelpfulMethods;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
@@ -99,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static void setSettingsAndSendServer(Activity v) throws IllegalAccessException {
-/*        send(Protocol.NEW_COMMAND);
+        send(Protocol.NEW_COMMAND);
         int countAllSets = 0;  //количество различных вариантов команд, по одному
         //для каждого направления джойстика, кнопки и 2 для акселерометра
         for (Integer viewId : viewEditTextMap.keySet()) {
@@ -125,22 +124,30 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     send(realCommands.length);
                 }
+                ArrayList<Integer> values = new ArrayList<>();
                 for (String realCommand : realCommands) {
                     if (HelpfulMethods.isNumeric(realCommand)) {
+                        values.add(Integer.parseInt(realCommand));
                         send(Integer.parseInt(realCommand));
                     } else {
-                        Field[] fields = KeyEvent.class.getDeclaredFields();
+                        Integer value = null;
+                        Field[] fields = KeyEvents.class.getDeclaredFields();
                         for (Field field: fields) {
                             String event = field.getName();
                             if (("VK_" + realCommand.toUpperCase()).equals(event)) {
-                                send(field.getInt(null));
+                                value = field.getInt(null);
+                                break;
                             }
                         }
+                        if (value == null)
+                            throw new NumberFormatException();
+                        values.add(value);
+                        send(value);
                     }
                 }
                 send(realCommands.length);
                 for (int j = 2*realCommands.length - 1; j >= realCommands.length; j--) {
-                    send(-Integer.parseInt(realCommands[j - realCommands.length])); //send commands
+                    send(values.get(j - realCommands.length)); //send commands
                     //on 'untouching'
                 }
             }
@@ -148,7 +155,7 @@ public class SettingsActivity extends AppCompatActivity {
             ((Settingable) view).setSettings(commands); //set associating numbering with direction or
             // button
         }
-        send(Protocol.RUN_COMMAND); */
+        send(Protocol.RUN_COMMAND);
     }
 
     void groupById(EditViewAdapter adapter) {

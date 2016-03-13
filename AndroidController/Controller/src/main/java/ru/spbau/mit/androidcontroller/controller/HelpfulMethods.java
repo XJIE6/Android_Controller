@@ -1,8 +1,10 @@
-package ru.spbau.mit.androidcontroller.tools;
+package ru.spbau.mit.androidcontroller.controller;
 
 /**
  * Created by n_buga on 13.03.16.
  */
+
+
 public class HelpfulMethods {
     public static boolean isNumeric(String str)
     {
