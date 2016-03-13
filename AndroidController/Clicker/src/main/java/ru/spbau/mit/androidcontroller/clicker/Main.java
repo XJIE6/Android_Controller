@@ -23,7 +23,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         while (true) { // main loop
             String s = in.nextLine();
-            switch(s) {
+            switch(s.split(" ")[0]) {
                 case "new": //creating new connection
                     if (ip == null) {
                         System.out.println("Your ip is undefined, please, set it first");
@@ -36,10 +36,6 @@ public class Main {
                     } catch (IOException e) {
                         System.out.println("Connection problem. Connection closed. Try to create new connection");
                     }
-                    break;
-                case "ip":
-                    ip = in.nextLine();
-                    System.out.println("Your ip is " + ip);
                     break;
                 case "help":
                     try {
@@ -58,6 +54,16 @@ public class Main {
                     break;
                 case "exit":
                     return;
+                case "ip":
+                    if (s.split(" ").length > 1) {
+                        ip = s.split(" ")[1];
+
+                    }
+                    else {
+                        ip = in.nextLine();
+                    }
+                    System.out.println("Your ip is " + ip);
+                    break;
                 default:
                     System.out.println("Unknown command '" + s + "'! Please, try again!");
             }
