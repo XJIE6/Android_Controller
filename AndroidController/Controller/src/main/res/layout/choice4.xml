@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1">
 
-    <ru.spbau.mit.androidcontroller.controller.MyButton
+    <ru.spbau.mit.androidcontroller.controller.OnTouchButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/test_gradient"

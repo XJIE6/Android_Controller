@@ -18,7 +18,7 @@
             android:id="@+id/textView8"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/A"
@@ -40,7 +40,7 @@
         android:layout_height="match_parent"
         android:layout_weight="3">
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/W"
@@ -55,7 +55,7 @@
             android:id="@+id/textView6"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/S"
@@ -78,7 +78,7 @@
             android:id="@+id/textView4"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/D"
@@ -114,21 +114,21 @@
         android:layout_height="match_parent"
         android:layout_weight="3">
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/Q"
             android:id="@+id/button5"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/E"
             android:id="@+id/button6"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/space"
@@ -165,7 +165,7 @@
             android:id="@+id/textView11"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/left"
@@ -187,7 +187,7 @@
         android:layout_height="match_parent"
         android:layout_weight="3">
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/up"
@@ -202,7 +202,7 @@
             android:id="@+id/textView13"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/down"
@@ -224,7 +224,7 @@
             android:id="@+id/textView14"
             android:layout_weight="1" />
 
-        <ru.spbau.mit.androidcontroller.controller.MyButton
+        <ru.spbau.mit.androidcontroller.controller.OnTouchButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/right"
