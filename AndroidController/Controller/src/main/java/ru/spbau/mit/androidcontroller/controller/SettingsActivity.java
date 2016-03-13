@@ -147,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 send(realCommands.length);
                 for (int j = 2*realCommands.length - 1; j >= realCommands.length; j--) {
-                    send(values.get(j - realCommands.length)); //send commands
+                    send(-values.get(j - realCommands.length)); //send commands
                     //on 'untouching'
                 }
             }
