@@ -43,7 +43,7 @@ public class PlayActivity extends AppCompatActivity{
 
         try {
             SettingsActivity.setSettingsAndSendServer(this);  //sends to server all commands and etc
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IllegalAccessException e) {
             Intent intent = new Intent(this, InfoActivity.class);
             intent.putExtra(InfoActivity.inform, "Wrong command format");
             startActivity(intent);
