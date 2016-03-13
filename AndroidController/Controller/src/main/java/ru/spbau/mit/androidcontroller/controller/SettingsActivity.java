@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.spbau.mit.androidcontroller.tools.Protocol;
-import ru.spbau.mit.androidcontroller.tools.HelpfulMethods;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
@@ -200,20 +199,20 @@ public class SettingsActivity extends AppCompatActivity {
 
         //find all objects on the pattern and then for each create some items
         for (View view: linearLayoutViews) {
-            if (view.getClass() == Button.class) {
+            if (view.getClass() == OnTouchButton.class) {
                 countButton++;
                 String commands = null;
                 if (mSettings.contains(APP_PREFERENCES_SETTINGS_BUTTONS + countButton))
-                    commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, commands);
-                ListItem curButtonSettings = createItem("Button_" + ((OnTouchButton)view).getLabel(countButton), commands, view);
+                    commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, null);
+                ListItem curButtonSettings = createItem("Button_" + ((OnTouchButton)view).getLabel(countButton), null, view);
                 items.add(curButtonSettings);
             } else if (view.getClass() == Joystick.class) {
                 countJoystick++;
                 for (int j = 0; j < 8; j++) {
                     String commands = null;
                     if (mSettings.contains(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j))
-                        commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, commands);
-                    ListItem curJoystickSettings = createItem("Joystick_" + ((Joystick)view).getLabel(countJoystick) + "; Direction" + j, commands, view);
+                        commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, null);
+                    ListItem curJoystickSettings = createItem("Joystick_" + ((Joystick)view).getLabel(countJoystick) + "; Direction" + j, null, view);
                     items.add(curJoystickSettings);
                 }
             } else if (view.getClass() == Accelerometer.class) {

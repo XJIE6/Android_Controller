@@ -112,7 +112,7 @@ public class Clicker implements Runnable { //this class creates connection with 
         for (int i = 0; i < commandNumber; ++i) {
             int commandLength = in.readInt();
 
-            List<Integer> list = new ArrayList<>();
+             List<Integer> list = new ArrayList<>();
             for (int j = 0; j < commandLength; ++j) {
                 list.add(in.readInt());
             }
