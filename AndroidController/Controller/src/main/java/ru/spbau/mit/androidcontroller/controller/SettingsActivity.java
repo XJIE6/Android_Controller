@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ru.spbau.mit.androidcontroller.tools.Protocol;
+import ru.spbau.mit.androidcontroller.tools.*;
 
 public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
@@ -98,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static void setSettingsAndSendServer(Activity v) throws IllegalAccessException {
-/*        send(Protocol.NEW_COMMAND);
+        send(Protocol.NEW_COMMAND);
         int countAllSets = 0;  //количество различных вариантов команд, по одному
         //для каждого направления джойстика, кнопки и 2 для акселерометра
         for (Integer viewId : viewEditTextMap.keySet()) {
@@ -147,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
             ((Settingable) view).setSettings(commands); //set associating numbering with direction or
             // button
         }
-        send(Protocol.RUN_COMMAND); */
+        send(Protocol.RUN_COMMAND);
     }
 
     void groupById(EditViewAdapter adapter) {
@@ -204,7 +204,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String commands = null;
                 if (mSettings.contains(APP_PREFERENCES_SETTINGS_BUTTONS + countButton))
                     commands = mSettings.getString(APP_PREFERENCES_SETTINGS_BUTTONS + countButton, null);
-                ListItem curButtonSettings = createItem("Button_" + ((OnTouchButton)view).getLabel(countButton), null, view);
+                ListItem curButtonSettings = createItem("Button_" + ((OnTouchButton)view).getLabel(countButton), commands, view);
                 items.add(curButtonSettings);
             } else if (view.getClass() == Joystick.class) {
                 countJoystick++;
@@ -212,7 +212,7 @@ public class SettingsActivity extends AppCompatActivity {
                     String commands = null;
                     if (mSettings.contains(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j))
                         commands = mSettings.getString(APP_REFERENCE_SETTINGS_JOYSTICKS + countJoystick + "_" + j, null);
-                    ListItem curJoystickSettings = createItem("Joystick_" + ((Joystick)view).getLabel(countJoystick) + "; Direction" + j, null, view);
+                    ListItem curJoystickSettings = createItem("Joystick_" + ((Joystick)view).getLabel(countJoystick) + "; Direction" + j, commands, view);
                     items.add(curJoystickSettings);
                 }
             } else if (view.getClass() == Accelerometer.class) {
