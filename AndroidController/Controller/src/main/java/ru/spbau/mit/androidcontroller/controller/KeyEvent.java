@@ -1,4 +1,4 @@
-package ru.spbau.mit.androidcontroller.tools;
+package ru.spbau.mit.androidcontroller.controller;
 
 /**
  * Created by n_buga on 13.03.16.
