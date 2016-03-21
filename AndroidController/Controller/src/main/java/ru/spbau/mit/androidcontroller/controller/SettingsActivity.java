@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,6 +123,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     send(realCommands.length);
                 }
+                ArrayList<Integer> commandsForSend = new ArrayList<>();
                 for (String realCommand : realCommands) {
                     if (HelpfulMethods.isNumeric(realCommand)) {
                         send(Integer.parseInt(realCommand));
@@ -133,13 +133,15 @@ public class SettingsActivity extends AppCompatActivity {
                             String event = field.getName();
                             if (("VK_" + realCommand.toUpperCase()).equals(event)) {
                                 send(field.getInt(null));
+                                commandsForSend.add(field.getInt(null));
+                                break;
                             }
                         }
                     }
                 }
                 send(realCommands.length);
                 for (int j = 2*realCommands.length - 1; j >= realCommands.length; j--) {
-                    send(-Integer.parseInt(realCommands[j - realCommands.length])); //send commands
+                    send(-commandsForSend.get(j - realCommands.length)); //send commands
                     //on 'untouching'
                 }
             }
